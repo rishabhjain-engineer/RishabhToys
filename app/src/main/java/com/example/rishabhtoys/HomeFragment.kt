@@ -1,10 +1,13 @@
 package com.example.rishabhtoys
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -29,5 +32,22 @@ class HomeFragment : Fragment() {
         view_pager.adapter = homePagerAdapter
         tabs.setupWithViewPager(view_pager)
 
+        view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            @SuppressLint("MissingSuperCall")
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+            }
+
+        })
+
+        floating_btn.setOnClickListener {
+            val intent = Intent(activity, AddEntityActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
