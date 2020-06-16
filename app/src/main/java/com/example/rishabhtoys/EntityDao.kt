@@ -18,5 +18,11 @@ interface EntityDao {
     @Query("SELECT * from entity_table")
     fun getAllEntities(): LiveData<List<Entity>>
 
+    @Query("SELECT * from entity_table WHERE Entity_Type = 'Purchase'")
+    fun getPurchaseEntity() : LiveData<List<Entity>>
+
+    @Query("SELECT * from entity_table WHERE Entity_Type = 'Sale'")
+    fun getSaleEntity() : LiveData<List<Entity>>
+
 
 }

@@ -3,6 +3,7 @@ package com.example.rishabhtoys
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
  */
 class HomeFragment : Fragment() {
 
+    var fragmentSelected = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,12 +43,18 @@ class HomeFragment : Fragment() {
             }
 
             override fun onPageSelected(position: Int) {
+                fragmentSelected = position
             }
 
         })
 
         floating_btn.setOnClickListener {
             val intent = Intent(activity, AddEntityActivity::class.java)
+            if(fragmentSelected == 0){
+                intent.putExtra(Entity_Type, Purchase)
+            }else if(fragmentSelected == 1 ){
+                intent.putExtra(Entity_Type, Sale)
+            }
             startActivity(intent)
         }
     }

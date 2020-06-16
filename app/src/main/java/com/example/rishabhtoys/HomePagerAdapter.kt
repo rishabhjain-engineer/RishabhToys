@@ -29,8 +29,8 @@ class HomePagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(
 
     override fun getPageTitle(position: Int): CharSequence? {
         when (position) {
-            0 -> return "BUYER"
-            1 -> return "VENDOR"
+            0 -> return Purchase.toUpperCase()
+            1 -> return Sale.toUpperCase()
         }
         return super.getPageTitle(position)
 
