@@ -3,4 +3,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="organisation_name">Organisation Name:</string>
+    <string name="detailed_info">Detailed Info</string>
+    <string name="address">Address:</string>
+    <string name="primary_contact_no">Primary Contact No:</string>
+    <string name="alternate_contact_no">Alternate Contact No:</string>
+    <string name="owner_s_name">Owner\'s Name:</string>
+    <string name="gst">GST No:</string>
+    <string name="transaction_history">Transaction History</string>
 </resources>

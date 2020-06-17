@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class BuyerFragmentAdapter() :
+class BuyerFragmentAdapter(private val listener:SingleEnitiyClick) :
     RecyclerView.Adapter<BuyerFragmentAdapter.MyViewHolder>() {
 
     var list:List<Entity> = ArrayList()
@@ -30,6 +30,10 @@ class BuyerFragmentAdapter() :
         holder.serialNo.text = (position + 1).toString()
         holder.companyName.text = list.get(position).companyName
         holder.amount.text = list.get(position).amount.toString()
+
+        holder.itemView.setOnClickListener {
+            listener.rowClicked(list.get(position).companyName)
+        }
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -37,7 +41,5 @@ class BuyerFragmentAdapter() :
         val companyName: TextView = itemView.findViewById(R.id.purchase_company_name)
         val amount: TextView = itemView.findViewById(R.id.purchase_amount)
         val serialNo: TextView = itemView.findViewById(R.id.purchase_srno)
-
-
     }
 }

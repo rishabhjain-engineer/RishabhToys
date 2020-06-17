@@ -1,5 +1,6 @@
 package com.example.rishabhtoys
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_vendor.*
 /**
  * A simple [Fragment] subclass.
  */
-class VendorFragment : Fragment() {
+class VendorFragment : Fragment() , SingleEnitiyClick {
 
     lateinit var layoutManager : LinearLayoutManager
     var mSaleList : List<Entity> = ArrayList()
@@ -34,7 +35,7 @@ class VendorFragment : Fragment() {
         layoutManager = LinearLayoutManager(activity)
         sale_recyclerview.layoutManager = layoutManager
         sale_recyclerview.setHasFixedSize(true)
-        mBuyerFragmentAdapter = BuyerFragmentAdapter()
+        mBuyerFragmentAdapter = BuyerFragmentAdapter(this)
         sale_recyclerview.adapter = mBuyerFragmentAdapter
 
         val repository = Repository(activity!!.application)
@@ -46,5 +47,11 @@ class VendorFragment : Fragment() {
                 mBuyerFragmentAdapter.notifyDataSetChanged()
             }
         })
+    }
+
+    override fun rowClicked(companyName : String) {
+        val intent = Intent(activity, DetailEntityActivity::class.java)
+        intent.putExtra("companyName",companyName)
+        startActivity(intent)
     }
 }

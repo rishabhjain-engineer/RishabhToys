@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddEntityActivity"></activity>
+        <activity android:name=".DetailEntityActivity"></activity>
+        <activity android:name=".AddEntityActivity" />
         <activity
             android:name=".HomeActivity"
             android:screenOrientation="portrait"

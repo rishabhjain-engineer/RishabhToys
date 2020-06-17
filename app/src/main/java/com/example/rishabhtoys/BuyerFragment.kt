@@ -1,5 +1,6 @@
 package com.example.rishabhtoys
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_buyer.*
 /**
  * A simple [Fragment] subclass.
  */
-class BuyerFragment : Fragment() {
+class BuyerFragment : Fragment() , SingleEnitiyClick {
 
     lateinit var layoutManager : LinearLayoutManager
     var mPurchaseList : List<Entity> = ArrayList()
@@ -34,7 +35,7 @@ class BuyerFragment : Fragment() {
         purchase_recyclerview.layoutManager = layoutManager
         purchase_recyclerview.setHasFixedSize(true)
 
-        mBuyerFragmentAdapter = BuyerFragmentAdapter()
+        mBuyerFragmentAdapter = BuyerFragmentAdapter(this)
         purchase_recyclerview.adapter = mBuyerFragmentAdapter
 
         val repository = Repository(activity!!.application)
@@ -47,6 +48,12 @@ class BuyerFragment : Fragment() {
             }
         })
 
+    }
+
+    override fun rowClicked(companyName : String) {
+        val intent = Intent(activity, DetailEntityActivity::class.java)
+        intent.putExtra("companyName",companyName)
+        startActivity(intent)
     }
 
 }

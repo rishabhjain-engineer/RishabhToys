@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "entity_table")
 class Entity {
 
+    @PrimaryKey
     @NonNull
     @ColumnInfo(name = "Company_Name")
     lateinit var companyName:String
@@ -26,8 +27,7 @@ class Entity {
     @ColumnInfo(name = "Alternate_Contact_No")
     lateinit var altContactNo:String
 
-    @PrimaryKey
-    @NonNull
+
     @ColumnInfo(name = "GST_No")
     lateinit var gstNo:String
 

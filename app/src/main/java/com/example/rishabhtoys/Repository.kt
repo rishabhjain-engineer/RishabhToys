@@ -13,6 +13,7 @@ class Repository(application: Application) {
     private var mAllEntities:LiveData<List<Entity>>? = null
     private var mPurchaseEntities:LiveData<List<Entity>>? = null
     private var mSaleEntities:LiveData<List<Entity>>? = null
+    private var mEntity:Entity? = null
 
     init {
         val db:RishabhToysDB? = RishabhToysDB.getDatabase(application)
@@ -39,6 +40,19 @@ class Repository(application: Application) {
         withContext(Dispatchers.IO) {
             mEntityDao?.insert(entity)
         }
+    }
+
+    suspend fun getEntity(companyName : String?) : Entity?{
+        withContext(Dispatchers.IO){
+            mEntity = mEntityDao?.getEntity(companyName)
+            Log.e("Rishabh","value received: "+mEntity?.companyName)
+            Log.e("Rishabh","value received: "+mEntity?.gstNo)
+        }
+        return mEntity
+    }
+
+    fun getEntity() : Entity? {
+        return mEntity
     }
 
 }
