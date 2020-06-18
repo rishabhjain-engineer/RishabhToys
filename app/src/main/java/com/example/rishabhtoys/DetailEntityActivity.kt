@@ -16,6 +16,7 @@ class DetailEntityActivity : BaseActivity() {
     private lateinit var mViewModel: DetailEntityViewModel
     private lateinit var mLayoutManager: LinearLayoutManager
     private lateinit var mAdapter : TxnHistoryAdapter
+    private var mTxnDetailList : MutableList<TxnDetail> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +47,11 @@ class DetailEntityActivity : BaseActivity() {
             d_e_company_owner.text = entity?.companyOwner
             d_e_primary_no.text = entity?.primaryContactNo
             d_e_alt_no.text = entity?.altContactNo
+
+            val txnDetail = TxnDetail(entity?.txnDateTime , entity?.amount, entity?.amount)
+            mTxnDetailList.add(txnDetail)
+            mAdapter.setData(mTxnDetailList)
+            mAdapter.notifyDataSetChanged()
         }
 
     }
