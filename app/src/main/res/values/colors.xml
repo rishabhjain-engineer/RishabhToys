@@ -8,4 +8,7 @@
     <color name="platinum">#E5E4E2</color>
     <color name="night">#0C090A</color>
     <color name="white">#FFFFFF</color>
+    <color name="cloudGrey">#6D6968</color>
+    <color name="blushRed">#E56E94</color>
+    <color name="backgroundGrey">#F8F8F8</color>
 </resources>
