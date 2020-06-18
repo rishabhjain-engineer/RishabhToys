@@ -3,6 +3,7 @@ package com.example.rishabhtoys
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_detail_entity.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -13,6 +14,8 @@ class DetailEntityActivity : BaseActivity() {
     private var receivedCompanyName: String? = ""
     private var entity: Entity? = null
     private lateinit var mViewModel: DetailEntityViewModel
+    private lateinit var mLayoutManager: LinearLayoutManager
+    private lateinit var mAdapter : TxnHistoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +24,11 @@ class DetailEntityActivity : BaseActivity() {
         if (intent != null) {
             receivedCompanyName = intent.getStringExtra("companyName")
         }
+
+        mLayoutManager = LinearLayoutManager(this)
+        txn_history_rv.layoutManager = mLayoutManager
+        mAdapter = TxnHistoryAdapter()
+        txn_history_rv.adapter = mAdapter
 
         val repository = Repository(this.application)
         mViewModel = ViewModelProvider(this).get(DetailEntityViewModel::class.java)
