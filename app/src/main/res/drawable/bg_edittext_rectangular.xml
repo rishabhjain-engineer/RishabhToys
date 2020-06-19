@@ -10,7 +10,7 @@
         android:topRightRadius="15dp" />
 
     <stroke
-        android:color="@color/colorPrimary"
+        android:color="@color/blushRed"
         android:width="2dp"/>
 
 </shape>

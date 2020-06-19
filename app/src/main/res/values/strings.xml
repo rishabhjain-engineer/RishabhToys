@@ -11,4 +11,8 @@
     <string name="owner_s_name">Owner\'s Name:</string>
     <string name="gst">GST No:</string>
     <string name="transaction_history">Transaction History</string>
+    <string name="add_business_entity">Add Business Entity</string>
+    <string name="company_s_name">Company\'s Name</string>
+    <string name="daily_logs">Daily Logs</string>
+    <string name="type_business_organisation_name">Type Business Organisation Name</string>
 </resources>
