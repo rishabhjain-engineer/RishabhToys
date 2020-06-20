@@ -3,10 +3,10 @@ package com.example.rishabhtoys
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_buyer.*
@@ -14,10 +14,10 @@ import kotlinx.android.synthetic.main.fragment_buyer.*
 /**
  * A simple [Fragment] subclass.
  */
-class BuyerFragment : Fragment() , SingleEnitiyClick {
+class BuyerFragment : Fragment(), SingleEnitiyClick {
 
-    lateinit var layoutManager : LinearLayoutManager
-    var mPurchaseList : List<Entity> = ArrayList()
+    lateinit var layoutManager: LinearLayoutManager
+    var mPurchaseList: List<Entity> = ArrayList()
     lateinit var mBuyerFragmentAdapter: BuyerFragmentAdapter
 
     override fun onCreateView(
@@ -39,9 +39,18 @@ class BuyerFragment : Fragment() , SingleEnitiyClick {
         purchase_recyclerview.adapter = mBuyerFragmentAdapter
 
         val repository = Repository(activity!!.application)
-        repository.getPurchaseEntities()?.observe(activity!! , Observer<List<Entity>> {
-            if(it != null && it.isNotEmpty()) {
-                Log.e("Rishabh","purchase size: "+it.size)
+
+
+        repository.getAllEntities()?.observe(activity!!, Observer<List<Entity>> {
+            if (it != null && it.isNotEmpty()) {
+                Log.e("Rishabh", " purchase all size: " + it.size)
+
+            }
+        })
+
+        repository.getPurchaseEntities()?.observe(activity!!, Observer<List<Entity>> {
+            if (it != null && it.isNotEmpty()) {
+                Log.e("Rishabh", "purchase size: " + it.size)
                 mPurchaseList = it
                 mBuyerFragmentAdapter.setData(mPurchaseList)
                 mBuyerFragmentAdapter.notifyDataSetChanged()
@@ -50,9 +59,9 @@ class BuyerFragment : Fragment() , SingleEnitiyClick {
 
     }
 
-    override fun rowClicked(companyName : String) {
+    override fun rowClicked(companyName: String) {
         val intent = Intent(activity, DetailEntityActivity::class.java)
-        intent.putExtra("companyName",companyName)
+        intent.putExtra("companyName", companyName)
         startActivity(intent)
     }
 
