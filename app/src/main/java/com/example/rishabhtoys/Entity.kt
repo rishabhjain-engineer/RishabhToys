@@ -10,7 +10,7 @@ class Entity {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = "Id")
     var id: Int = 0;
 
     @NonNull
@@ -37,7 +37,7 @@ class Entity {
 
     @NonNull
     @ColumnInfo(name = "Txn_Amount")
-    var amount: Int = 0
+    var amount: Float = 0F
 
     // 0 -> Purchase : Buyer
     // 1 -> Sale : vendor

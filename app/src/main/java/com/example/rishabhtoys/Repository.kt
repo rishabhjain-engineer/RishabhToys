@@ -14,6 +14,7 @@ class Repository(application: Application) {
     private var mPurchaseEntities:LiveData<List<Entity>>? = null
     private var mSaleEntities:LiveData<List<Entity>>? = null
     private var mEntity:Entity? = null
+    private var mListOfCompanyName:List<EntityTransData>? = ArrayList()
 
     init {
         val db:RishabhToysDB? = RishabhToysDB.getDatabase(application)
@@ -53,6 +54,14 @@ class Repository(application: Application) {
 
     fun getEntity() : Entity? {
         return mEntity
+    }
+
+    suspend fun getCompanyNameList() : List<EntityTransData>?{
+        withContext(Dispatchers.IO){
+            mListOfCompanyName = mEntityDao?.getListOfCompanyName()
+            Log.e("Rishabh","mList of company received in repo: "+mListOfCompanyName?.size)
+        }
+        return mListOfCompanyName
     }
 
 }

@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_margin="30dp"
+                android:completionThreshold="1"
                 android:hint="@string/type_business_organisation_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,7 @@
 package com.example.rishabhtoys
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,10 @@ import android.widget.CalendarView
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_report.*
 import kotlinx.android.synthetic.main.select_dialog_item.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 
 /**
@@ -16,22 +21,8 @@ import kotlinx.android.synthetic.main.select_dialog_item.*
  */
 class ReportFragment : Fragment() {
 
-    var fruits = arrayOf(
-        "Apple",
-        "Aam",
-        "Papaya",
-        "Banana",
-        "Cherry",
-        "Date",
-        "Grape",
-        "Kiwi",
-        "Kaju",
-        "Mango",
-        "Water melon",
-        "Musk melon",
-        "Guava",
-        "Pear"
-    )
+    private var mListOfCompanies : List<EntityTransData>? = ArrayList()
+    private lateinit var autoCompleteCustomAdapter: AutoCompleteCustomAdapter
 
 
     override fun onCreateView(
@@ -46,10 +37,23 @@ class ReportFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val adapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(activity!!, R.layout.select_dialog_item,R.id.firm_name_tv, fruits)
-        autoCompleteTextView.threshold = 1 //will start working from first character
-        autoCompleteTextView.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
+
+        val repository = Repository(activity!!.application)
+
+
+        val result = GlobalScope.async {
+            repository.getCompanyNameList()
+        }
+
+        GlobalScope.launch (Dispatchers.Main) {
+            mListOfCompanies = result.await()
+            autoCompleteCustomAdapter = AutoCompleteCustomAdapter(activity!! ,mListOfCompanies )
+            autoCompleteTextView.setAdapter(autoCompleteCustomAdapter) //setting the adapter data into the AutoCompleteTextView
+
+        }
+
+
+
 
         report_date.text = Utils.getTxnDateTime()
         calender.visibility = View.GONE
@@ -69,6 +73,8 @@ class ReportFragment : Fragment() {
             report_date.text = dayOfMonth.toString().plus(".").plus(month+1).plus(".").plus(year)
         }
 
-        
+
+
+
     }
 }
