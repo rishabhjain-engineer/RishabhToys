@@ -27,8 +27,11 @@ interface EntityDao {
     @Query("SELECT * from entity_table WHERE Company_Name = :companyName")
     fun getEntity(companyName: String?): Entity
 
-    @Query("SELECT Company_Name , Id  from entity_table")
+    @Query("SELECT Company_Name , Id , Txn_Amount from entity_table")
     fun getListOfCompanyName(): List<EntityTransData>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertTxnLog(txnHistoryEntity : TxnHistoryEntity)
 
 
 }

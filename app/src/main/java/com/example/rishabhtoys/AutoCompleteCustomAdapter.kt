@@ -9,7 +9,7 @@ import android.widget.Filter
 import android.widget.TextView
 
 
-class AutoCompleteCustomAdapter(context: Context, list: List<EntityTransData>?) :
+class AutoCompleteCustomAdapter(context: Context, list: List<EntityTransData>?, listener : SendEntityObject) :
     ArrayAdapter<EntityTransData>(context, 0, list!!) {
 
 
@@ -77,6 +77,7 @@ class AutoCompleteCustomAdapter(context: Context, list: List<EntityTransData>?) 
         }
 
         override fun convertResultToString(resultValue: Any?): CharSequence {
+            listener.sendEntity((resultValue as EntityTransData))
             return (resultValue as EntityTransData).Company_Name
         }
 
@@ -85,6 +86,11 @@ class AutoCompleteCustomAdapter(context: Context, list: List<EntityTransData>?) 
     internal class ViewHolder {
         var firmNameTv: TextView? = null
     }
+
+    interface SendEntityObject{
+        fun sendEntity(entityTransData: EntityTransData)
+    }
+
 
 }
 

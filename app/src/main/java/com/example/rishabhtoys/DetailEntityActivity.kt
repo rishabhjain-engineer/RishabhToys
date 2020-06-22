@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_detail_entity.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -39,7 +40,7 @@ class DetailEntityActivity : BaseActivity() {
             repository.getEntity(receivedCompanyName)
         }
 
-        GlobalScope.launch {
+        GlobalScope.launch (Dispatchers.Main){
             val entity: Entity? = result.await()
             d_e_company_name.text = entity?.companyName
             d_e_company_address.text = entity?.companyAddress

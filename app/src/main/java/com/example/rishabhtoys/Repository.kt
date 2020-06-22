@@ -64,4 +64,10 @@ class Repository(application: Application) {
         return mListOfCompanyName
     }
 
+    suspend fun insertTxnLog(txnHistoryEntity: TxnHistoryEntity){
+        withContext(Dispatchers.IO){
+            mEntityDao?.insertTxnLog(txnHistoryEntity)
+        }
+    }
+
 }
