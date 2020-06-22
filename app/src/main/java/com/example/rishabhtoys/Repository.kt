@@ -15,6 +15,7 @@ class Repository(application: Application) {
     private var mSaleEntities:LiveData<List<Entity>>? = null
     private var mEntity:Entity? = null
     private var mListOfCompanyName:List<EntityTransData>? = ArrayList()
+    private var test : List<DetailInfoForEntity>? = null
 
     init {
         val db:RishabhToysDB? = RishabhToysDB.getDatabase(application)
@@ -67,6 +68,12 @@ class Repository(application: Application) {
     suspend fun insertTxnLog(txnHistoryEntity: TxnHistoryEntity){
         withContext(Dispatchers.IO){
             mEntityDao?.insertTxnLog(txnHistoryEntity)
+        }
+    }
+
+    suspend fun getDetailInfoForEntity(id : Int){
+        withContext(Dispatchers.IO){
+            test =  mEntityDao?. getDetailInfoForEntity(id)
         }
     }
 

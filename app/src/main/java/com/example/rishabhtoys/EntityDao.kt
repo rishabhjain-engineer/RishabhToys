@@ -34,4 +34,7 @@ interface EntityDao {
     fun insertTxnLog(txnHistoryEntity : TxnHistoryEntity)
 
 
+    @Query("SELECT entity_table.Company_Name, entity_table.Company_Owner_Name,TxnHistory.TxnAmount FROM entity_table INNER JOIN TxnHistory ON entity_table.Id = TxnHistory.Entity_Id WHERE entity_table.Id =:entityId")
+    fun getDetailInfoForEntity(entityId: Int) : List<DetailInfoForEntity>
+
 }

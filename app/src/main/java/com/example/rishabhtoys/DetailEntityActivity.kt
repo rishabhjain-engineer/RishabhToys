@@ -55,5 +55,10 @@ class DetailEntityActivity : BaseActivity() {
             mAdapter.notifyDataSetChanged()
         }
 
+        GlobalScope.launch {
+            repository.getDetailInfoForEntity(3)
+        }
+
+
     }
 }
