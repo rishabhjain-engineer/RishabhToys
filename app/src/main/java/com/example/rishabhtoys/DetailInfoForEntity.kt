@@ -1,8 +1,12 @@
 package com.example.rishabhtoys
 
+import androidx.room.Embedded
+
 data class DetailInfoForEntity(
-    var Company_Name: String,
-    var Company_Owner_Name: String,
-    var TxnAmount: Float) {
+    @Embedded
+    var entity: Entity,
+    @Embedded
+    var txnHistoryEntity: TxnHistoryEntity
+    ) {
 
 }

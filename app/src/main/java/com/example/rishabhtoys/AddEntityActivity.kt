@@ -44,7 +44,7 @@ class AddEntityActivity : AppCompatActivity() {
         entity.primaryContactNo = addEntity_contact_primary_et.text.toString()
         entity.altContactNo = addEntity_contact_alt_et.text.toString()
         entity.gstNo = addEntity_gst_et.text.toString()
-        entity.amount = addEntity_amount_et.text.toString().toFloat()
+        entity.totalAmount = addEntity_amount_et.text.toString().toFloat()
 
         if (receivedEntityType != null && 0 == receivedEntityType) {
             entity.entityType = 0

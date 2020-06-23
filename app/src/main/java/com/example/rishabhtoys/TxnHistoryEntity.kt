@@ -3,40 +3,35 @@ package com.example.rishabhtoys
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import java.math.BigInteger
 
-@Entity(tableName = "TxnHistory")
+@Entity()
 class TxnHistoryEntity {
 
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id:Long = 0
+    @ColumnInfo(name = "txnHistoryId")
+    var txnHistoryId: Long? = null
 
     @NonNull
-    @ColumnInfo(name = "Entity_Id")
-    var entityId:Int = 0
+    @ColumnInfo(name = "entityId")
+    var entityId: Int? = null
 
     @NonNull
-    @ColumnInfo(name = "TxnDate")
-    lateinit var date:String
+    @ColumnInfo(name = "txnDate")
+    lateinit var date: String
 
     @NonNull
-    @ColumnInfo(name = "TxnAmount")
-    var txnAmount:Float = 0F
+    @ColumnInfo(name = "txnAmount")
+    var txnAmount: Float? = null
 
     //0 ->Debit
     //1->Credit
     @NonNull
-    @ColumnInfo(name = "TxnType")
-    var txnType:Int = 0
+    @ColumnInfo(name = "txnType")
+    var txnType: Int? = null
 
-    @ColumnInfo(name = "isActive")
-    var isActive:Boolean = true
-
-    @ColumnInfo(name = "Remark")
-    lateinit var remark:String
+    @ColumnInfo(name = "remark")
+    lateinit var remark: String
 
 }

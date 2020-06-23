@@ -14,10 +14,10 @@ import kotlinx.android.synthetic.main.fragment_buyer.*
 /**
  * A simple [Fragment] subclass.
  */
-class BuyerFragment : Fragment(), SingleEnitiyClick {
+class BuyerFragment : Fragment(), SendEntityObject {
 
     lateinit var layoutManager: LinearLayoutManager
-    var mPurchaseList: List<Entity> = ArrayList()
+    var mPurchaseList: List<EntityTransData> = ArrayList()
     lateinit var mBuyerFragmentAdapter: BuyerFragmentAdapter
 
     override fun onCreateView(
@@ -39,18 +39,15 @@ class BuyerFragment : Fragment(), SingleEnitiyClick {
         purchase_recyclerview.adapter = mBuyerFragmentAdapter
 
         val repository = Repository(activity!!.application)
+        repository.getPurchaseEntity()
 
-
-        repository.getAllEntities()?.observe(activity!!, Observer<List<Entity>> {
+       /* repository.getAllEntities()?.observe(activity!!, Observer<List<Entity>> {
             if (it != null && it.isNotEmpty()) {
-                Log.e("Rishabh", " purchase all size: " + it.size)
-
             }
-        })
+        })*/
 
-        repository.getPurchaseEntities()?.observe(activity!!, Observer<List<Entity>> {
+        repository.mPurchaseEntities?.observe(activity!!, Observer<List<EntityTransData>> {
             if (it != null && it.isNotEmpty()) {
-                Log.e("Rishabh", "purchase size: " + it.size)
                 mPurchaseList = it
                 mBuyerFragmentAdapter.setData(mPurchaseList)
                 mBuyerFragmentAdapter.notifyDataSetChanged()
@@ -59,9 +56,10 @@ class BuyerFragment : Fragment(), SingleEnitiyClick {
 
     }
 
-    override fun rowClicked(companyName: String) {
+
+    override fun sendEntity(entityTransData: EntityTransData) {
         val intent = Intent(activity, DetailEntityActivity::class.java)
-        intent.putExtra("companyName", companyName)
+        intent.putExtra("entityId", entityTransData.id)
         startActivity(intent)
     }
 

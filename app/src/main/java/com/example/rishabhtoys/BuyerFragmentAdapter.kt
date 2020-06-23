@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class BuyerFragmentAdapter(private val listener:SingleEnitiyClick) :
+class BuyerFragmentAdapter(private val listener:SendEntityObject) :
     RecyclerView.Adapter<BuyerFragmentAdapter.MyViewHolder>() {
 
-    var list:List<Entity> = ArrayList()
+    var list:List<EntityTransData> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view =
@@ -18,7 +18,7 @@ class BuyerFragmentAdapter(private val listener:SingleEnitiyClick) :
         return MyViewHolder(view)
     }
 
-    fun setData(list:List<Entity>){
+    fun setData(list:List<EntityTransData>){
         this.list = list
     }
 
@@ -29,10 +29,10 @@ class BuyerFragmentAdapter(private val listener:SingleEnitiyClick) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.serialNo.text = (position + 1).toString()
         holder.companyName.text = list.get(position).companyName
-        holder.amount.text = list.get(position).amount.toString()
+        holder.amount.text = list.get(position).totalAmount.toString()
 
         holder.itemView.setOnClickListener {
-            listener.rowClicked(list.get(position).companyName)
+            listener.sendEntity(list.get(position))
         }
     }
 

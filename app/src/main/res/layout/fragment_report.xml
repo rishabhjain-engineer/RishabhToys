@@ -55,7 +55,6 @@
                 android:layout_width="match_parent"
                 app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView"
                 android:layout_marginTop="30dp"
-                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_height="wrap_content"/>
@@ -238,6 +237,12 @@
                 android:textColor="@color/white"
                 android:layout_height="40dp"/>
 
+
+            <androidx.constraintlayout.widget.Group
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="report_date_label,report_date,report_balance_label,report_balance,report_amount_label,report_amount,credit_debit_button_view,report_description_label,report_description,report_log_btn"
+                android:id="@+id/group" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

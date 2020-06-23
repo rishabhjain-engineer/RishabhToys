@@ -14,10 +14,10 @@ import kotlinx.android.synthetic.main.fragment_vendor.*
 /**
  * A simple [Fragment] subclass.
  */
-class VendorFragment : Fragment(), SingleEnitiyClick {
+class VendorFragment : Fragment(), SendEntityObject {
 
     lateinit var layoutManager: LinearLayoutManager
-    var mSaleList: List<Entity> = ArrayList()
+    var mSaleList: List<EntityTransData> = ArrayList()
     lateinit var mBuyerFragmentAdapter: BuyerFragmentAdapter
 
     override fun onCreateView(
@@ -38,15 +38,9 @@ class VendorFragment : Fragment(), SingleEnitiyClick {
         sale_recyclerview.adapter = mBuyerFragmentAdapter
 
         val repository = Repository(activity!!.application)
-        repository.getAllEntities()?.observe(activity!!, Observer<List<Entity>> {
-            if (it != null && it.isNotEmpty()) {
-                Log.e("Rishabh", " sale all size: " + it.size)
+        repository.getSaleEntity()
 
-            }
-        })
-
-
-        repository.getSaleEntities()?.observe(activity!!, Observer<List<Entity>> {
+        repository.mSaleEntities?.observe(activity!!, Observer<List<EntityTransData>> {
             if (it != null && it.isNotEmpty()) {
                 Log.e("Rishabh", "sale size: " + it.size)
                 mSaleList = it
@@ -56,9 +50,10 @@ class VendorFragment : Fragment(), SingleEnitiyClick {
         })
     }
 
-    override fun rowClicked(companyName: String) {
+
+    override fun sendEntity(entityTransData: EntityTransData) {
         val intent = Intent(activity, DetailEntityActivity::class.java)
-        intent.putExtra("companyName", companyName)
+        intent.putExtra("entityId", entityTransData.id)
         startActivity(intent)
     }
 }

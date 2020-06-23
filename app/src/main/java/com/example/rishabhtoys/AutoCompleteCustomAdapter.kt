@@ -9,7 +9,7 @@ import android.widget.Filter
 import android.widget.TextView
 
 
-class AutoCompleteCustomAdapter(context: Context, list: List<EntityTransData>?, listener : SendEntityObject) :
+class AutoCompleteCustomAdapter(context: Context, list: List<EntityTransData>?) :
     ArrayAdapter<EntityTransData>(context, 0, list!!) {
 
 
@@ -36,7 +36,7 @@ class AutoCompleteCustomAdapter(context: Context, list: List<EntityTransData>?, 
             retView = convertView
         }
         val entity: EntityTransData? = getItem(position)
-        holder.firmNameTv?.text = entity?.Company_Name
+        holder.firmNameTv?.text = entity?.companyName
 
         return retView
     }
@@ -53,7 +53,7 @@ class AutoCompleteCustomAdapter(context: Context, list: List<EntityTransData>?, 
             } else {
                 val stringPattern = constraint.toString().toLowerCase().trim()
                 for (entity in entityTransDataList) {
-                    if (entity.Company_Name.toLowerCase().startsWith(stringPattern)) {
+                    if (entity.companyName.toLowerCase().startsWith(stringPattern)) {
                         suggestions.add(entity)
                     }
                 }
@@ -77,8 +77,7 @@ class AutoCompleteCustomAdapter(context: Context, list: List<EntityTransData>?, 
         }
 
         override fun convertResultToString(resultValue: Any?): CharSequence {
-            listener.sendEntity((resultValue as EntityTransData))
-            return (resultValue as EntityTransData).Company_Name
+            return (resultValue as EntityTransData).companyName
         }
 
     }
@@ -86,11 +85,6 @@ class AutoCompleteCustomAdapter(context: Context, list: List<EntityTransData>?, 
     internal class ViewHolder {
         var firmNameTv: TextView? = null
     }
-
-    interface SendEntityObject{
-        fun sendEntity(entityTransData: EntityTransData)
-    }
-
 
 }
 
