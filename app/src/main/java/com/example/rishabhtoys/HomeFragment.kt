@@ -3,7 +3,6 @@ package com.example.rishabhtoys
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +38,11 @@ class HomeFragment : Fragment() {
             }
 
             @SuppressLint("MissingSuperCall")
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
             }
 
             override fun onPageSelected(position: Int) {
@@ -50,10 +53,10 @@ class HomeFragment : Fragment() {
 
         floating_btn.setOnClickListener {
             val intent = Intent(activity, AddEntityActivity::class.java)
-            if(fragmentSelected == 0){
-                intent.putExtra(Entity_Type, Purchase)
-            }else if(fragmentSelected == 1 ){
-                intent.putExtra(Entity_Type, Sale)
+            if (fragmentSelected == 0) {
+                intent.putExtra(Entity_Type, 0)
+            } else if (fragmentSelected == 1) {
+                intent.putExtra(Entity_Type, 1)
             }
             startActivity(intent)
         }

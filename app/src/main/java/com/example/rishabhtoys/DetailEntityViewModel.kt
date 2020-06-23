@@ -1,15 +1,20 @@
 package com.example.rishabhtoys
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 
-class DetailEntityViewModel : ViewModel() {
+class DetailEntityViewModel(application: Application) : AndroidViewModel(application) {
 
-    lateinit var entityData : LiveData<Entity>
+    var repository: Repository = Repository(application)
 
-    fun getEntity() : LiveData<Entity> {
-        return entityData
+
+    fun getDetailEntityInfo(entityId: Int?) {
+        repository.getDetailInfoForEntity(entityId!!)
     }
 
+    fun getData() : LiveData<List<DetailInfoForEntity>>? {
+        return repository.getEntityDetailList()
+    }
 
 }

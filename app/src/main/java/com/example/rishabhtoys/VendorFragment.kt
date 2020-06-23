@@ -3,22 +3,21 @@ package com.example.rishabhtoys
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_buyer.*
 import kotlinx.android.synthetic.main.fragment_vendor.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class VendorFragment : Fragment() , SingleEnitiyClick {
+class VendorFragment : Fragment(), SendEntityObject {
 
-    lateinit var layoutManager : LinearLayoutManager
-    var mSaleList : List<Entity> = ArrayList()
+    lateinit var layoutManager: LinearLayoutManager
+    var mSaleList: List<EntityTransData> = ArrayList()
     lateinit var mBuyerFragmentAdapter: BuyerFragmentAdapter
 
     override fun onCreateView(
@@ -39,9 +38,11 @@ class VendorFragment : Fragment() , SingleEnitiyClick {
         sale_recyclerview.adapter = mBuyerFragmentAdapter
 
         val repository = Repository(activity!!.application)
-        repository.getSaleEntities()?.observe(activity!! , Observer<List<Entity>> {
-            if(it != null && it.isNotEmpty()) {
-                Log.e("Rishabh","sale size: "+it.size)
+        repository.getSaleEntity()
+
+        repository.mSaleEntities?.observe(activity!!, Observer<List<EntityTransData>> {
+            if (it != null && it.isNotEmpty()) {
+                Log.e("Rishabh", "sale size: " + it.size)
                 mSaleList = it
                 mBuyerFragmentAdapter.setData(mSaleList)
                 mBuyerFragmentAdapter.notifyDataSetChanged()
@@ -49,9 +50,10 @@ class VendorFragment : Fragment() , SingleEnitiyClick {
         })
     }
 
-    override fun rowClicked(companyName : String) {
+
+    override fun sendEntity(entityTransData: EntityTransData) {
         val intent = Intent(activity, DetailEntityActivity::class.java)
-        intent.putExtra("companyName",companyName)
+        intent.putExtra("entityId", entityTransData.id)
         startActivity(intent)
     }
 }

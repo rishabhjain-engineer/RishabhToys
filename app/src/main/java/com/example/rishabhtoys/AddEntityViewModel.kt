@@ -10,10 +10,6 @@ class AddEntityViewModel(application: Application) : AndroidViewModel(applicatio
 
     var repository:Repository = Repository(application)
 
-    init {
-        Log.e("Rishabh","ViewModel created")
-    }
-
     suspend fun insertEntity(entity: Entity){
         repository.insert(entity)
     }

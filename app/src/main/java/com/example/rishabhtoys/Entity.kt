@@ -5,48 +5,59 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "entity_table")
+@Entity()
 class Entity {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
-    @ColumnInfo(name = "Company_Name")
-    lateinit var companyName:String
-
-    @NonNull
-    @ColumnInfo(name = "Company_Owner_Name")
-    lateinit var companyOwner:String
-
-    @ColumnInfo(name = "Company_Address")
-    lateinit var companyAddress:String
+    @ColumnInfo(name = "id")
+    var id: Int = 0;
 
     @NonNull
-    @ColumnInfo(name = "Primary_Contact_No")
-    lateinit var primaryContactNo:String
-
-    @ColumnInfo(name = "Alternate_Contact_No")
-    lateinit var altContactNo:String
-
-
-    @ColumnInfo(name = "GST_No")
-    lateinit var gstNo:String
+    @ColumnInfo(name = "companyName")
+    lateinit var companyName: String
 
     @NonNull
-    @ColumnInfo(name = "Txn_Amount")
-    var amount:Int = 0
+    @ColumnInfo(name = "companyOwnerName")
+    lateinit var companyOwner: String
+
+    @ColumnInfo(name = "companyAddress")
+    lateinit var companyAddress: String
 
     @NonNull
-    @ColumnInfo(name = "Entity_Type")
-    lateinit var entityType:String
+    @ColumnInfo(name = "primaryContactNo")
+    lateinit var primaryContactNo: String
 
+    @ColumnInfo(name = "alternateContactNo")
+    lateinit var altContactNo: String
+
+
+    @ColumnInfo(name = "gstNo")
+    lateinit var gstNo: String
 
     @NonNull
-    @ColumnInfo(name = "Txn_Type")
-    lateinit var txnType:String
+    @ColumnInfo(name = "totalAmount")
+    var totalAmount: Float = 0F
+
+    // 0 -> Purchase : Buyer
+    // 1 -> Sale : vendor
+    @NonNull
+    @ColumnInfo(name = "entityType")
+    var entityType: Int = 0
+
+
+    // 0 -> Debit
+    // 1 -> Credit
+    @NonNull
+    @ColumnInfo(name = "amountType")
+    var txnType: Int = 0
 
     @NonNull
-    @ColumnInfo(name = "txn_Date_Time")
-    lateinit var txnDateTime:String
+    @ColumnInfo(name = "dateOfCreation")
+    lateinit var txnDateTime: String
+
+    @ColumnInfo(name = "isActive")
+    var isActive: Boolean = true
 
 
 }

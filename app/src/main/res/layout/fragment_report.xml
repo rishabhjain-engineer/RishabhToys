@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_margin="30dp"
+                android:completionThreshold="1"
                 android:hint="@string/type_business_organisation_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +55,6 @@
                 android:layout_width="match_parent"
                 app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView"
                 android:layout_marginTop="30dp"
-                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_height="wrap_content"/>
@@ -104,7 +104,6 @@
                 android:textSize="20sp"
                 android:layout_marginStart="15dp"
                 android:textStyle="normal"
-                android:text="INR 10,000"
                 android:textColor="@color/night"
                 app:layout_constraintStart_toEndOf="@+id/report_balance_label"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -155,7 +154,7 @@
 
 
                 <RadioButton
-                    android:id="@+id/radio0"
+                    android:id="@+id/credit_radio"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -172,7 +171,7 @@
                     android:textColor="@color/radio_flat_text_selector" />
 
                 <RadioButton
-                    android:id="@+id/radio1"
+                    android:id="@+id/debit_radio"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -238,6 +237,12 @@
                 android:textColor="@color/white"
                 android:layout_height="40dp"/>
 
+
+            <androidx.constraintlayout.widget.Group
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="report_date_label,report_date,report_balance_label,report_balance,report_amount_label,report_amount,credit_debit_button_view,report_description_label,report_description,report_log_btn"
+                android:id="@+id/group" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

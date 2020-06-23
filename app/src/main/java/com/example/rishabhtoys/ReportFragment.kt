@@ -1,14 +1,20 @@
 package com.example.rishabhtoys
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.CalendarView
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_report.*
-import kotlinx.android.synthetic.main.select_dialog_item.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 
 /**
@@ -16,22 +22,10 @@ import kotlinx.android.synthetic.main.select_dialog_item.*
  */
 class ReportFragment : Fragment() {
 
-    var fruits = arrayOf(
-        "Apple",
-        "Aam",
-        "Papaya",
-        "Banana",
-        "Cherry",
-        "Date",
-        "Grape",
-        "Kiwi",
-        "Kaju",
-        "Mango",
-        "Water melon",
-        "Musk melon",
-        "Guava",
-        "Pear"
-    )
+    private var mListOfCompanies: List<EntityTransData>? = ArrayList()
+    private lateinit var autoCompleteCustomAdapter: AutoCompleteCustomAdapter
+    private var selectedEntityTransData: EntityTransData? = null
+    private lateinit var mRepository: Repository
 
 
     override fun onCreateView(
@@ -45,30 +39,138 @@ class ReportFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        mRepository = Repository(activity!!.application)
+        group.visibility = GONE
+        val result = GlobalScope.async {
+            mRepository.getCompanyNameList()
+        }
 
-        val adapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(activity!!, R.layout.select_dialog_item,R.id.firm_name_tv, fruits)
-        autoCompleteTextView.threshold = 1 //will start working from first character
-        autoCompleteTextView.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
+        GlobalScope.launch(Dispatchers.Main) {
+            mListOfCompanies = result.await()
+            autoCompleteCustomAdapter =
+                AutoCompleteCustomAdapter(activity!!, mListOfCompanies)
+            autoCompleteTextView.setAdapter(autoCompleteCustomAdapter) //setting the adapter data into the AutoCompleteTextView
+        }
 
         report_date.text = Utils.getTxnDateTime()
-        calender.visibility = View.GONE
+        group.visibility = VISIBLE
+        calender.visibility = GONE
 
         report_date.setOnClickListener {
-
-            report_date_label.visibility = View.GONE
-            report_date.visibility = View.GONE
+            group.visibility = GONE
             calender.visibility = View.VISIBLE
         }
 
         calender.setOnDateChangeListener { view, year, month, dayOfMonth ->
-
-            report_date_label.visibility = View.VISIBLE
-            report_date.visibility = View.VISIBLE
-            calender.visibility = View.GONE
-            report_date.text = dayOfMonth.toString().plus(".").plus(month+1).plus(".").plus(year)
+            calender.visibility = GONE
+            group.visibility = View.VISIBLE
+            report_date.text = dayOfMonth.toString().plus(".").plus(month + 1).plus(".").plus(year)
         }
 
-        
+
+
+        autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
+            selectedEntityTransData = parent?.getItemAtPosition(position) as EntityTransData
+            report_balance.text = resources.getString(R.string.inr).plus(" ")
+                .plus(selectedEntityTransData?.totalAmount.toString())
+            autoCompleteTextView.isCursorVisible = false
+        }
+
+        autoCompleteTextView.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                selectedEntityTransData = null
+                autoCompleteTextView.isCursorVisible = true
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                selectedEntityTransData = null
+                autoCompleteTextView.isCursorVisible = true
+            }
+
+        })
+
+
+        report_log_btn.setOnClickListener {
+            if (validationCheck()) {
+                submitLog()
+            }
+        }
+
+
+    }
+
+    private fun submitLog() {
+
+        val txnHistoryEntity = TxnHistoryEntity()
+        txnHistoryEntity.entityId = selectedEntityTransData?.id
+        txnHistoryEntity.date = report_date.text.toString()
+        txnHistoryEntity.txnAmount = report_amount.text.toString().toFloat()
+
+        if (credit_debit_button_view.checkedRadioButtonId.equals(R.id.credit_radio)) {
+            txnHistoryEntity.txnType = 1
+        } else if (credit_debit_button_view.checkedRadioButtonId.equals(R.id.debit_radio)) {
+            txnHistoryEntity.txnType = 0
+        }
+        if (!TextUtils.isEmpty(report_description.text.toString())) {
+            txnHistoryEntity.remark = report_description.text.toString()
+        }
+
+        val insertResult = GlobalScope.async {
+            mRepository.insertTxnLog(txnHistoryEntity)
+        }
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val status: Long? = insertResult.await()
+            val ret: Int? = status?.compareTo(0)
+
+            if (ret != null && ret >= 0) {
+                clearUI()
+                (activity as BaseActivity).showDialog(
+                    "Success",
+                    "Transaction saved successfully !!",
+                    R.drawable.ic_check_circle_24dp
+                )
+            } else {
+                (activity as BaseActivity).showDialog(
+                    "Error",
+                    "Transaction couldn't be saved !!",
+                    R.drawable.ic_alert_error_24dp
+                )
+            }
+        }
+
+
+    }
+
+    private fun clearUI() {
+        autoCompleteTextView.text.clear()
+        report_balance.text = ""
+        report_amount.setText("")
+        report_description.setText("")
+    }
+
+
+    private fun validationCheck(): Boolean {
+        if (selectedEntityTransData == null) {
+            (activity as BaseActivity).showDialog(
+                "Error",
+                "Kindly select organisation name !!",
+                R.drawable.ic_alert_error_24dp
+            )
+        } else if (TextUtils.isEmpty(report_amount.text.toString())) {
+            (activity as BaseActivity).showDialog(
+                "Error",
+                "Kindly enter transaction amount !!",
+                R.drawable.ic_alert_error_24dp
+            )
+        } else {
+            return true
+        }
+        return false
     }
 }
+
+
