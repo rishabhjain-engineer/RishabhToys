@@ -16,4 +16,6 @@
     <string name="company_s_name">Company\'s Name</string>
     <string name="daily_logs">Daily Logs</string>
     <string name="type_business_organisation_name">Type organisation name</string>
+    <string name="opening_balance">Opening Balance</string>
+    <string name="create_account">Create Account</string>
 </resources>

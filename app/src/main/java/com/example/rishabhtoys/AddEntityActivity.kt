@@ -1,9 +1,15 @@
 package com.example.rishabhtoys
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
-import android.util.Log
+import android.text.TextWatcher
+import android.view.View
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import com.jakewharton.rxbinding2.widget.RxTextView
 import kotlinx.android.synthetic.main.activity_add_entity.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -11,7 +17,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 
-class AddEntityActivity : BaseActivity(), DialogActionCallback{
+class AddEntityActivity : BaseActivity(), DialogActionCallback {
 
     private lateinit var viewModel: AddEntityViewModel
     // 0 for Purchase : Debit
@@ -29,6 +35,80 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback{
             receivedEntityType = intent.getIntExtra(Entity_Type, 0)
         }
 
+        addEntity_firm_name_et.addTextChangedListener( object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if(s!= null && s.isNotEmpty()){
+                    addEntity_firm_name.error = null
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
+
+        addEntity_address_et.addTextChangedListener( object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if(s!= null && s.isNotEmpty()){
+                    addEntity_address.error = null
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
+
+        addEntity_owner_name_et.addTextChangedListener( object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if(s!= null && s.isNotEmpty()){
+                    addEntity_owner_name.error = null
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
+
+        addEntity_contact_primary_et.addTextChangedListener( object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if(s!= null && s.isNotEmpty()){
+                    addEntity_contact_primary.error = null
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
+
+        addEntity_contact_alt_et.addTextChangedListener( object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if(s!= null && s.isNotEmpty()){
+                    addEntity_contact_alternate.error = null
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
 
         create_account.setOnClickListener {
 
@@ -36,7 +116,7 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback{
                 val result = GlobalScope.async {
                     viewModel.createEntityAndInsertTxnHistory(createEntity(), createTxnHistory())
                 }
-                GlobalScope.launch (Dispatchers.Main){
+                GlobalScope.launch(Dispatchers.Main) {
                     val status: Long? = result.await()
                     val ret: Int? = status?.compareTo(0)
                     if (ret != null && ret >= 0) {
@@ -87,7 +167,11 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback{
         txnHistoryEntity.date = Utils.getTxnDateTime()
         txnHistoryEntity.remark = "Creating account."
         txnHistoryEntity.txnAmount = addEntity_amount_et.text.toString().toFloat()
-        txnHistoryEntity.txnType = 0
+        if (receivedEntityType != null && 0 == receivedEntityType) {
+            txnHistoryEntity.txnType = 0
+        } else if (receivedEntityType != null && 1 == receivedEntityType) {
+            txnHistoryEntity.txnType = 1
+        }
 
         return txnHistoryEntity
     }
@@ -95,35 +179,19 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback{
     fun validateUI(): Boolean {
 
         if (TextUtils.isEmpty(addEntity_firm_name_et.text.toString())) {
-            showDialog("Error", "Please enter company name !!", R.drawable.ic_alert_error_24dp)
+            addEntity_firm_name.error = "Please enter company name."
+        }  else if (TextUtils.isEmpty(addEntity_address_et.text.toString())) {
+            addEntity_address.error = "Please enter company's address."
         } else if (TextUtils.isEmpty(addEntity_owner_name_et.text.toString())) {
-            showDialog("Error", "Please enter owner's name !!", R.drawable.ic_alert_error_24dp)
-        } else if (TextUtils.isEmpty(addEntity_address_et.text.toString())) {
-            showDialog("Error", "Please enter company address !!", R.drawable.ic_alert_error_24dp)
-        } else if (TextUtils.isEmpty(addEntity_contact_primary_et.text.toString())) {
-            showDialog(
-                "Error",
-                "Please enter primary contact no !!",
-                R.drawable.ic_alert_error_24dp
-            )
+            addEntity_owner_name.error = "Please enter owner's name."
+        }else if (TextUtils.isEmpty(addEntity_contact_primary_et.text.toString())) {
+            addEntity_contact_primary.error = "Please enter primary contact no."
         } else if (addEntity_contact_primary_et.text.toString().length != 10) {
-            showDialog(
-                "Error",
-                "Please enter valid primary contact no !!",
-                R.drawable.ic_alert_error_24dp
-            )
+            addEntity_contact_primary.error = "Please enter valid primary contact no."
         } else if (!TextUtils.isEmpty(addEntity_contact_alt_et.text.toString()) && addEntity_contact_alt_et.text.toString().length != 10) {
-            showDialog(
-                "Error",
-                "Please enter valid alternate contact no !!",
-                R.drawable.ic_alert_error_24dp
-            )
+            addEntity_contact_alternate.error = "Please enter valid alternate contact no."
         } else if (TextUtils.isEmpty(addEntity_amount_et.editableText.toString())) {
-            showDialog(
-                "Error",
-                "Please enter opening balance amount !!",
-                R.drawable.ic_alert_error_24dp
-            )
+            addEntity_amount.error = "Please enter opening amount balance."
         } else {
             return true
         }
@@ -132,7 +200,7 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback{
     }
 
     override fun sendCallback(positiveAction: Boolean) {
-        if(positiveAction){
+        if (positiveAction) {
             finish()
         }
     }
