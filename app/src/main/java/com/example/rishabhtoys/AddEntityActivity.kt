@@ -4,12 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.view.View
-import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import com.jakewharton.rxbinding2.widget.RxTextView
 import kotlinx.android.synthetic.main.activity_add_entity.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -35,9 +30,9 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
             receivedEntityType = intent.getIntExtra(Entity_Type, 0)
         }
 
-        addEntity_firm_name_et.addTextChangedListener( object : TextWatcher {
+        addEntity_firm_name_et.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if(s!= null && s.isNotEmpty()){
+                if (s != null && s.isNotEmpty()) {
                     addEntity_firm_name.error = null
                 }
             }
@@ -50,9 +45,9 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
 
         })
 
-        addEntity_address_et.addTextChangedListener( object : TextWatcher {
+        addEntity_address_et.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if(s!= null && s.isNotEmpty()){
+                if (s != null && s.isNotEmpty()) {
                     addEntity_address.error = null
                 }
             }
@@ -65,9 +60,9 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
 
         })
 
-        addEntity_owner_name_et.addTextChangedListener( object : TextWatcher {
+        addEntity_owner_name_et.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if(s!= null && s.isNotEmpty()){
+                if (s != null && s.isNotEmpty()) {
                     addEntity_owner_name.error = null
                 }
             }
@@ -80,9 +75,9 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
 
         })
 
-        addEntity_contact_primary_et.addTextChangedListener( object : TextWatcher {
+        addEntity_contact_primary_et.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if(s!= null && s.isNotEmpty()){
+                if (s != null && s.isNotEmpty()) {
                     addEntity_contact_primary.error = null
                 }
             }
@@ -95,9 +90,9 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
 
         })
 
-        addEntity_contact_alt_et.addTextChangedListener( object : TextWatcher {
+        addEntity_contact_alt_et.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if(s!= null && s.isNotEmpty()){
+                if (s != null && s.isNotEmpty()) {
                     addEntity_contact_alternate.error = null
                 }
             }
@@ -180,11 +175,11 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
 
         if (TextUtils.isEmpty(addEntity_firm_name_et.text.toString())) {
             addEntity_firm_name.error = "Please enter company name."
-        }  else if (TextUtils.isEmpty(addEntity_address_et.text.toString())) {
+        } else if (TextUtils.isEmpty(addEntity_address_et.text.toString())) {
             addEntity_address.error = "Please enter company's address."
         } else if (TextUtils.isEmpty(addEntity_owner_name_et.text.toString())) {
             addEntity_owner_name.error = "Please enter owner's name."
-        }else if (TextUtils.isEmpty(addEntity_contact_primary_et.text.toString())) {
+        } else if (TextUtils.isEmpty(addEntity_contact_primary_et.text.toString())) {
             addEntity_contact_primary.error = "Please enter primary contact no."
         } else if (addEntity_contact_primary_et.text.toString().length != 10) {
             addEntity_contact_primary.error = "Please enter valid primary contact no."
