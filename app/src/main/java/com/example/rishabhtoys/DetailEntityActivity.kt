@@ -6,28 +6,23 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_detail_entity.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 class DetailEntityActivity : BaseActivity() {
 
-    private var receivedEntityId: Int? = 0
+    private var receivedEntityId: Long? = 0
     private var entity: Entity? = null
     private lateinit var mViewModel: DetailEntityViewModel
     private lateinit var mLayoutManager: LinearLayoutManager
-    private lateinit var mAdapter : TxnHistoryAdapter
+    private lateinit var mAdapter: TxnHistoryAdapter
+    private var mTxnHistoryList : MutableList<TxnHistoryEntity> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_entity)
 
         if (intent != null) {
-            receivedEntityId = intent.getIntExtra("entityId",0)
+            receivedEntityId = intent.getLongExtra("entityId", 0)
         }
-
-        Log.e("Rishabh","received Entity Id: "+receivedEntityId) ;
 
         mLayoutManager = LinearLayoutManager(this)
         txn_history_rv.layoutManager = mLayoutManager
@@ -35,25 +30,27 @@ class DetailEntityActivity : BaseActivity() {
         txn_history_rv.adapter = mAdapter
 
         mViewModel = ViewModelProvider(this).get(DetailEntityViewModel::class.java)
-        if(receivedEntityId != null){
+        if (receivedEntityId != null) {
             mViewModel.getDetailEntityInfo(receivedEntityId)
         }
 
-        mViewModel.getData()?.observe(this , Observer<List<DetailInfoForEntity>> {
+        mViewModel.getData()?.observe(this, Observer<List<DetailInfoForEntity>> {
 
-            Log.e("Rishabh","detail info size: "+it.size)
+            if (it.isNotEmpty()) {
+                d_e_company_name.text = it[0].entity.companyName
+                d_e_company_address.text = it[0].entity.companyAddress
+                d_e_gst.text = it[0].entity.gstNo
+                d_e_entity_type.text = it[0].entity.entityType.toString()
+                d_e_company_owner.text = it[0].entity.companyOwner
+                d_e_primary_no.text = it[0].entity.primaryContactNo
+                d_e_alt_no.text = it[0].entity.altContactNo
+            }
 
+            mTxnHistoryList.clear()
             it.forEach {
-                Log.e("Rishabh","company name: "+it.entity.companyName)
-                Log.e("Rishabh","owner name: "+it.entity.companyOwner)
-                Log.e("Rishabh","gst no: "+it.entity.gstNo)
-                Log.e("Rishabh","primary  no: "+it.entity.primaryContactNo)
-                Log.e("Rishabh","total  balance: "+it.entity.totalAmount)
-                Log.e("Rishabh","txn  amount: "+it.txnHistoryEntity.txnAmount)
-                Log.e("Rishabh","txn  date: "+it.txnHistoryEntity.date)
-                Log.e("Rishabh","txn  remark: "+it.txnHistoryEntity.remark)
-
-                Log.e("Rishabh","\n *************************** ")
+                mTxnHistoryList.add(it.txnHistoryEntity)
+                mAdapter.setData(mTxnHistoryList)
+                mAdapter.notifyDataSetChanged()
             }
 
         })

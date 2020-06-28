@@ -14,6 +14,7 @@ class Repository(application: Application) {
     private var mListOfCompanyName: List<EntityTransData>? = ArrayList()
     private var listOfDetailEntityInfo: LiveData<List<DetailInfoForEntity>>? = null
     private var insertAndUpdateQueryStatus: Long? = 0
+    private var createAndInsertQueryStatus: Long? = 0
 
     init {
         val db: RishabhToysDB? = RishabhToysDB.getDatabase(application)
@@ -21,10 +22,12 @@ class Repository(application: Application) {
 
     }
 
-    suspend fun insert(entity: Entity) {
+    suspend fun createEntityAndInsertTxnHistory(entity: Entity , txnHistoryEntity: TxnHistoryEntity) : Long?{
         withContext(Dispatchers.IO) {
-            mEntityDao?.insert(entity)
+            createAndInsertQueryStatus = mEntityDao?.createEntityAndInsertTxnHistory(entity,txnHistoryEntity)
         }
+
+        return createAndInsertQueryStatus
     }
 
     suspend fun getCompanyNameList(): List<EntityTransData>? {
@@ -35,7 +38,7 @@ class Repository(application: Application) {
     }
 
 
-    fun getDetailInfoForEntity(id: Int) {
+    fun getDetailInfoForEntity(id: Long) {
         listOfDetailEntityInfo = mEntityDao?.getDetailInfoForEntity(id)
     }
 
@@ -53,7 +56,7 @@ class Repository(application: Application) {
 
     suspend fun insertAndUpdate(
         txnHistoryEntity: TxnHistoryEntity,
-        entityId: Int,
+        entityId: Long,
         totalAmount: Float
     ): Long? {
         withContext(Dispatchers.IO) {

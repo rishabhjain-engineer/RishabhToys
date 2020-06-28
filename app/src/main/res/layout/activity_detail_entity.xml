@@ -119,6 +119,28 @@
                     app:layout_constraintTop_toBottomOf="@+id/d_e_company_address" />
 
                 <TextView
+                    android:id="@+id/d_e_entity_type_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="4dp"
+                    android:text="EntityType: "
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/d_e_gst" />
+
+                <TextView
+                    android:id="@+id/d_e_entity_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="4dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/night"
+                    app:layout_constraintStart_toEndOf="@+id/d_e_entity_type_label"
+                    app:layout_constraintTop_toBottomOf="@+id/d_e_gst" />
+
+                <TextView
                     android:id="@+id/d_e_owner_name_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -127,7 +149,7 @@
                     android:text="@string/owner_s_name"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/d_e_gst" />
+                    app:layout_constraintTop_toBottomOf="@+id/d_e_entity_type" />
 
                 <TextView
                     android:id="@+id/d_e_company_owner"
@@ -139,7 +161,7 @@
                     android:textColor="@color/night"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/d_e_owner_name_label"
-                    app:layout_constraintTop_toBottomOf="@+id/d_e_gst" />
+                    app:layout_constraintTop_toBottomOf="@+id/d_e_entity_type" />
 
                 <TextView
                     android:id="@+id/d_e_primary_no_label"

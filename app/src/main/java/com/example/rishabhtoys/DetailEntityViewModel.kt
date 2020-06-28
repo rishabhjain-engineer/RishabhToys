@@ -9,7 +9,7 @@ class DetailEntityViewModel(application: Application) : AndroidViewModel(applica
     var repository: Repository = Repository(application)
 
 
-    fun getDetailEntityInfo(entityId: Int?) {
+    fun getDetailEntityInfo(entityId: Long?) {
         repository.getDetailInfoForEntity(entityId!!)
     }
 

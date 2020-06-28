@@ -11,7 +11,7 @@ class Entity {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "id")
-    var id: Int = 0;
+    var id: Long? = null ;
 
     @NonNull
     @ColumnInfo(name = "companyName")
@@ -31,26 +31,25 @@ class Entity {
     @ColumnInfo(name = "alternateContactNo")
     lateinit var altContactNo: String
 
-
     @ColumnInfo(name = "gstNo")
     lateinit var gstNo: String
 
     @NonNull
     @ColumnInfo(name = "totalAmount")
-    var totalAmount: Float = 0F
+    var totalAmount: Float? = null
 
     // 0 -> Purchase : Buyer
     // 1 -> Sale : vendor
     @NonNull
     @ColumnInfo(name = "entityType")
-    var entityType: Int = 0
+    var entityType: Int? = null
 
 
     // 0 -> Debit
     // 1 -> Credit
     @NonNull
     @ColumnInfo(name = "amountType")
-    var txnType: Int = 0
+    var txnType: Int? = null
 
     @NonNull
     @ColumnInfo(name = "dateOfCreation")

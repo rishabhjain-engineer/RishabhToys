@@ -1,5 +1,6 @@
 package com.example.rishabhtoys
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
@@ -7,7 +8,7 @@ import androidx.room.*
 interface EntityDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(entity: Entity)
+    fun insert(entity: Entity): Long
 
     @Query("SELECT companyName, id, totalAmount from Entity WHERE entityType = 0 ")
     fun getPurchaseEntity(): LiveData<List<EntityTransData>>
@@ -22,20 +23,29 @@ interface EntityDao {
     fun insertTxnLog(txnHistoryEntity: TxnHistoryEntity): Long
 
     @Query("SELECT Entity.*, TxnHistoryEntity.* FROM Entity INNER JOIN TxnHistoryEntity ON Entity.Id = TxnHistoryEntity.entityId WHERE Entity.Id =:entityId")
-    fun getDetailInfoForEntity(entityId: Int): LiveData<List<DetailInfoForEntity>>
+    fun getDetailInfoForEntity(entityId: Long): LiveData<List<DetailInfoForEntity>>
 
     @Query("UPDATE Entity SET totalAmount = :updatedAmount WHERE id = :entityId")
-    fun updateTotalAmount(entityId: Int, updatedAmount: Float?)
+    fun updateTotalAmount(entityId: Long, updatedAmount: Float?)
 
     @Transaction
     fun insertAndUpdateTxn(
         txnHistoryEntity: TxnHistoryEntity,
-        entityId: Int,
+        entityId: Long,
         updatedAmount: Float?
     ): Long {
         val float1: Long = insertTxnLog(txnHistoryEntity)
         updateTotalAmount(entityId, updatedAmount)
         return float1
+    }
+
+
+    @Transaction
+    fun createEntityAndInsertTxnHistory(entity: Entity, txnHistoryEntity: TxnHistoryEntity): Long {
+        val id = insert(entity)
+        txnHistoryEntity.entityId = id
+        val long = insertTxnLog(txnHistoryEntity)
+        return long
     }
 
 }

@@ -1,18 +1,22 @@
 package com.example.rishabhtoys
 
+import android.content.DialogInterface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
-open class BaseActivity : AppCompatActivity() {
+open class BaseActivity : AppCompatActivity(){
 
+    private lateinit var listener : DialogActionCallback
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
+    fun setListener(listener: DialogActionCallback){
+        this.listener = listener
+    }
 
     fun showDialog(title:String, message:String, icon:Int){
 
@@ -26,6 +30,7 @@ open class BaseActivity : AppCompatActivity() {
         //performing positive action
         builder.setPositiveButton("Ok"){dialogInterface, which ->
             dialogInterface.dismiss()
+            listener.sendCallback(true)
         }
         /*//performing cancel action
         builder.setNeutralButton("Cancel"){dialogInterface , which ->

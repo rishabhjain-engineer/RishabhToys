@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 
 class TxnHistoryAdapter : RecyclerView.Adapter<TxnHistoryAdapter.MyViewHolder>() {
 
-    private var list : List<TxnDetail> = ArrayList()
+    private var list : List<TxnHistoryEntity> = ArrayList()
 
-    fun setData(list : List<TxnDetail>){
+    fun setData(list : List<TxnHistoryEntity>){
         this.list = list
     }
 
@@ -26,8 +26,8 @@ class TxnHistoryAdapter : RecyclerView.Adapter<TxnHistoryAdapter.MyViewHolder>()
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         holder.dateTv.text = list.get(position).date
-        holder.amountTv.text = list.get(position).amount.toString()
-        holder.balanceTv.text = list.get(position).balance.toString()
+        holder.amountTv.text = list.get(position).txnAmount.toString()
+        holder.balanceTv.text = list.get(position).txnAmount.toString()
     }
 
 
