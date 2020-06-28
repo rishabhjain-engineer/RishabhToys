@@ -11,12 +11,12 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        val handler = Handler()
+        /*val handler = Handler()
         handler.postDelayed( {
             val intent = Intent(SplashActivity@this,HomeActivity::class.java)
             startActivity(intent)
             finish()
-        }, 1500)
+        }, 1500)*/
 
     }
 }
