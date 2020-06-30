@@ -15,7 +15,7 @@ class TxnHistoryEntity {
 
     @NonNull
     @ColumnInfo(name = "entityId")
-    var entityId: Int? = null
+    var entityId: Long? = null
 
     @NonNull
     @ColumnInfo(name = "txnDate")

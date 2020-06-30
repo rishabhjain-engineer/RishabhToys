@@ -118,14 +118,17 @@ class ReportFragment : Fragment() {
             txnHistoryEntity.remark = report_description.text.toString()
         }
 
-        val insertResult = GlobalScope.async {
-            mRepository.insertTxnLog(txnHistoryEntity)
+        val insertAndUpdateResult = GlobalScope.async {
+            mRepository.insertAndUpdate(
+                txnHistoryEntity,
+                selectedEntityTransData?.id!!,
+                calculateUpdatedAmount()!!
+            )
         }
 
         GlobalScope.launch(Dispatchers.Main) {
-            val status: Long? = insertResult.await()
+            val status: Long? = insertAndUpdateResult.await()
             val ret: Int? = status?.compareTo(0)
-
             if (ret != null && ret >= 0) {
                 clearUI()
                 (activity as BaseActivity).showDialog(
@@ -141,7 +144,6 @@ class ReportFragment : Fragment() {
                 )
             }
         }
-
 
     }
 
@@ -170,6 +172,18 @@ class ReportFragment : Fragment() {
             return true
         }
         return false
+    }
+
+    private fun calculateUpdatedAmount(): Float? {
+        if (credit_debit_button_view.checkedRadioButtonId.equals(R.id.credit_radio)) {
+            selectedEntityTransData?.totalAmount =
+                selectedEntityTransData?.totalAmount?.plus(report_amount.text.toString().toFloat())!!
+        } else if (credit_debit_button_view.checkedRadioButtonId.equals(R.id.debit_radio)) {
+            selectedEntityTransData?.totalAmount =
+                selectedEntityTransData?.totalAmount?.minus(report_amount.text.toString().toFloat())!!
+        }
+        return selectedEntityTransData?.totalAmount
+
     }
 }
 

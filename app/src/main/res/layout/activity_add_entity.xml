@@ -4,263 +4,201 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/backgroundGrey"
+    android:orientation="vertical"
     tools:context=".AddEntityActivity">
 
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:contentInsetEnd="0dp"
         app:contentInsetLeft="0dp"
         app:contentInsetRight="0dp"
-        app:contentInsetStart="0dp"
-        android:background="@color/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+        app:contentInsetStart="0dp">
 
         <TextView
             android:layout_width="match_parent"
-            android:text="@string/add_business_entity"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:layout_height="wrap_content"
             android:gravity="center"
+            android:text="@string/add_business_entity"
             android:textColor="@color/white"
-            android:layout_height="wrap_content"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </androidx.appcompat.widget.Toolbar>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/backgroundGrey"
-        android:layout_marginTop="30dp">
+        android:fillViewport="true"
+        android:background="@color/backgroundGrey">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:background="@color/backgroundGrey"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp">
 
-            <TextView
-                android:id="@+id/addEntity_firm_name_label"
-                android:layout_width="wrap_content"
-                android:text="@string/company_s_name"
-                android:textSize="14sp"
-                android:textColor="@color/cloudGrey"
-                android:layout_marginStart="25dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_height="wrap_content"/>
-
-            <EditText
-                android:id="@+id/addEntity_firm_name_et"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addEntity_firm_name"
+                style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_firm_name_label"
-                android:textColorHint="#e5e5e5"
-                android:textSize="18sp"
-                android:padding="10dp"
-                android:background="@drawable/bg_edittext_rectangular"
-                android:textColor="#000000"
-                android:inputType="textCapWords"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="5dp"
-                android:hint="Enter company's name"
-                android:layout_marginRight="25dp"
-                android:layout_height="wrap_content"/>
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/addEntity_owner_name_label"
-                android:layout_width="wrap_content"
-                android:text="Company Owner's Name"
-                android:textSize="14sp"
-                android:textColor="@color/cloudGrey"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_firm_name_et"
-                android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/addEntity_firm_name_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:hint="@string/company_s_name"
+                    android:inputType="textCapWords" />
 
-            <EditText
-                android:id="@+id/addEntity_owner_name_et"
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addEntity_address"
+                style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_owner_name_label"
-                android:textColorHint="#e5e5e5"
-                android:textSize="18sp"
-                android:padding="10dp"
-                android:background="@drawable/bg_edittext_rectangular"
-                android:textColor="#000000"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginTop="5dp"
-                android:inputType="textPersonName"
-                android:hint="Enter company owner name"
-                android:layout_height="wrap_content"/>
+                app:layout_constraintTop_toBottomOf="@+id/addEntity_firm_name">
 
-            <TextView
-                android:id="@+id/addEntity_address_label"
-                android:layout_width="wrap_content"
-                android:text="Company's Address"
-                android:textSize="14sp"
-                android:textColor="@color/cloudGrey"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_owner_name_et"
-                android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/addEntity_address_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/address"
+                    android:textSize="12sp"
+                    android:inputType="textCapWords" />
 
-            <EditText
-                android:id="@+id/addEntity_address_et"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addEntity_gst"
+                style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_address_label"
-                android:textColorHint="#e5e5e5"
-                android:textSize="18sp"
-                android:padding="10dp"
-                android:background="@drawable/bg_edittext_rectangular"
-                android:textColor="#000000"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginTop="5dp"
-                android:inputType="text"
-                android:hint="Enter company's address"
-                android:layout_height="wrap_content"/>
+                app:layout_constraintTop_toBottomOf="@+id/addEntity_address">
 
-            <TextView
-                android:id="@+id/addEntity_contact_primary_label"
-                android:layout_width="wrap_content"
-                android:text="Owner's Contact Number"
-                android:textSize="14sp"
-                android:textColor="@color/cloudGrey"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_address_et"
-                android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/addEntity_gst_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:hint="@string/gst"
+                    android:maxLength="15"
+                    android:inputType="textCapWords" />
 
-            <EditText
-                android:id="@+id/addEntity_contact_primary_et"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addEntity_owner_name"
+                style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_contact_primary_label"
-                android:textColorHint="#e5e5e5"
-                android:textSize="18sp"
-                android:padding="10dp"
-                android:background="@drawable/bg_edittext_rectangular"
-                android:textColor="#000000"
-                android:inputType="number"
-                android:maxLength="10"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginTop="5dp"
-                android:hint="Enter owner's primary contact no."
-                android:layout_height="wrap_content"/>
+                app:layout_constraintTop_toBottomOf="@+id/addEntity_gst">
 
-            <TextView
-                android:id="@+id/addEntity_contact_alt_label"
-                android:layout_width="wrap_content"
-                android:text="Owner's Alternate Contact Number"
-                android:textSize="14sp"
-                android:textColor="@color/cloudGrey"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_contact_primary_et"
-                android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/addEntity_owner_name_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:hint="@string/owner_s_name"
+                    android:inputType="textCapWords" />
 
-            <EditText
-                android:id="@+id/addEntity_contact_alt_et"
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addEntity_contact_primary"
+                style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_contact_alt_label"
-                android:textColorHint="#e5e5e5"
-                android:textSize="18sp"
-                android:padding="10dp"
-                android:maxLength="10"
-                android:background="@drawable/bg_edittext_rectangular"
-                android:textColor="#000000"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginTop="5dp"
-                android:inputType="number"
-                android:hint="Enter owner's alternate contact no."
-                android:layout_height="wrap_content"/>
+                app:layout_constraintTop_toBottomOf="@+id/addEntity_owner_name">
 
-            <TextView
-                android:id="@+id/addEntity_gst_label"
-                android:layout_width="wrap_content"
-                android:text="Company's GST Number"
-                android:textSize="14sp"
-                android:textColor="@color/cloudGrey"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_contact_alt_et"
-                android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/addEntity_contact_primary_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="10"
+                    android:textSize="12sp"
+                    android:hint="@string/primary_contact_no"
+                    android:inputType="number" />
 
-            <EditText
-                android:id="@+id/addEntity_gst_et"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addEntity_contact_alternate"
+                style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_gst_label"
-                android:textColorHint="#e5e5e5"
-                android:textSize="18sp"
-                android:inputType="text"
-                android:padding="10dp"
-                android:background="@drawable/bg_edittext_rectangular"
-                android:textColor="#000000"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginTop="5dp"
-                android:hint="Enter company's GST no."
-                android:layout_height="wrap_content"/>
+                app:layout_constraintTop_toBottomOf="@+id/addEntity_contact_primary">
 
-            <TextView
-                android:id="@+id/addEntity_amount_label"
-                android:layout_width="wrap_content"
-                android:text="Amount"
-                android:textSize="14sp"
-                android:textColor="@color/cloudGrey"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_gst_et"
-                android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/addEntity_contact_alt_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="10"
+                    android:textSize="12sp"
+                    android:hint="@string/alternate_contact_no"
+                    android:inputType="number" />
 
-            <EditText
-                android:id="@+id/addEntity_amount_et"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addEntity_amount"
+                style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_amount_label"
-                android:textColorHint="#e5e5e5"
-                android:textSize="18sp"
-                android:padding="10dp"
-                android:background="@drawable/bg_edittext_rectangular"
-                android:textColor="#000000"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginTop="5dp"
-                android:hint="INR."
-                android:inputType="number"
-                android:maxLength="7"
-                android:layout_height="wrap_content"/>
+                app:layout_constraintTop_toBottomOf="@+id/addEntity_contact_alternate">
+
+                <EditText
+                    android:id="@+id/addEntity_amount_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/opening_balance"
+                    android:textSize="12sp"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/create_account"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="25dp"
-                android:text="Create Account"
+                android:layout_height="60dp"
+                android:background="@color/colorPrimary"
+                android:text="@string/create_account"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="17sp"
-                android:background="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_amount_et"/>
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addEntity_amount" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
