@@ -9,9 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 
 open class BaseActivity : AppCompatActivity(){
 
-    private lateinit var listener : DialogActionCallback
+    private var listener : DialogActionCallback? = null
+    var sharePref: SharePref? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharePref = SharePref.getSharePrefInstance(this)
     }
 
     fun setListener(listener: DialogActionCallback){
@@ -30,7 +33,9 @@ open class BaseActivity : AppCompatActivity(){
         //performing positive action
         builder.setPositiveButton("Ok"){dialogInterface, which ->
             dialogInterface.dismiss()
-            listener.sendCallback(true)
+            if(listener != null){
+                listener?.sendCallback(true)
+            }
         }
         /*//performing cancel action
         builder.setNeutralButton("Cancel"){dialogInterface , which ->
