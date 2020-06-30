@@ -109,10 +109,11 @@ class ReportFragment : Fragment() {
         txnHistoryEntity.date = report_date.text.toString()
         txnHistoryEntity.txnAmount = report_amount.text.toString().toFloat()
 
-        if (credit_debit_button_view.checkedRadioButtonId.equals(R.id.credit_radio)) {
-            txnHistoryEntity.txnType = 1
-        } else if (credit_debit_button_view.checkedRadioButtonId.equals(R.id.debit_radio)) {
-            txnHistoryEntity.txnType = 0
+        if (goods_payment_button_view.checkedRadioButtonId.equals(R.id.goods_radio)) {
+            txnHistoryEntity.txnType = TxnType.GOODS
+        } else if (goods_payment_button_view.checkedRadioButtonId.equals(R.id.payment_radio)) {
+            txnHistoryEntity.txnType = TxnType.PAYMENT
+            txnHistoryEntity.txnColorCode = txnPaymentColor
         }
         if (!TextUtils.isEmpty(report_description.text.toString())) {
             txnHistoryEntity.remark = report_description.text.toString()
@@ -174,11 +175,25 @@ class ReportFragment : Fragment() {
         return false
     }
 
+
+    /*
+    *
+    * Purchase Mode :
+    * if goods option selected : add amount to the balance, since we need to pay to factory
+    * if payment option selected: deduct amount from balance: since we had pay x amount.
+    *
+    *
+    * Sale Mode:
+    * if good option selected: add amount to balance, since total amount we have to take from our party
+    * if payment option selected: deduct amount from balance, since party paid us x amount.
+    *
+    * */
+
     private fun calculateUpdatedAmount(): Float? {
-        if (credit_debit_button_view.checkedRadioButtonId.equals(R.id.credit_radio)) {
+        if (goods_payment_button_view.checkedRadioButtonId.equals(R.id.goods_radio)) {
             selectedEntityTransData?.totalAmount =
                 selectedEntityTransData?.totalAmount?.plus(report_amount.text.toString().toFloat())!!
-        } else if (credit_debit_button_view.checkedRadioButtonId.equals(R.id.debit_radio)) {
+        } else if (goods_payment_button_view.checkedRadioButtonId.equals(R.id.payment_radio)) {
             selectedEntityTransData?.totalAmount =
                 selectedEntityTransData?.totalAmount?.minus(report_amount.text.toString().toFloat())!!
         }

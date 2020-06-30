@@ -1,5 +1,6 @@
 package com.example.rishabhtoys
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,17 +34,19 @@ class TxnHistoryAdapter : RecyclerView.Adapter<TxnHistoryAdapter.MyViewHolder>()
             balanceAmount = list[0].txnAmount
             holder.amountTv.text = list.get(position).txnAmount.toString()
         }else{
-            if(0 == list[position].txnType) {
-                // txn type = debit; money will go out of our pocket
-                balanceAmount = balanceAmount?.minus(list[position].txnAmount!!)
-                holder.amountTv.text = "- ".plus(list.get(position).txnAmount.toString())
-            }else{
-                // txn type = credit; money will come to our pocket
+            if(TxnType.GOODS.equals(list[position].txnType)) {
                 balanceAmount = balanceAmount?.plus(list[position].txnAmount!!)
                 holder.amountTv.text = "+ ".plus(list.get(position).txnAmount.toString())
+            }else if(TxnType.PAYMENT.equals(list[position].txnType)){
+                balanceAmount = balanceAmount?.minus(list[position].txnAmount!!)
+                holder.amountTv.text = "- ".plus(list.get(position).txnAmount.toString())
+                holder.itemView.setBackgroundColor(list[position].txnColorCode)
             }
         }
+
         holder.balanceTv.text = balanceAmount.toString()
+
+
     }
 
 

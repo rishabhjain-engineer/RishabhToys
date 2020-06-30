@@ -44,13 +44,6 @@ class Entity {
     @ColumnInfo(name = "entityType")
     var entityType: Int? = null
 
-
-    // 0 -> Debit
-    // 1 -> Credit
-    @NonNull
-    @ColumnInfo(name = "amountType")
-    var txnType: Int? = null
-
     @NonNull
     @ColumnInfo(name = "dateOfCreation")
     lateinit var txnDateTime: String

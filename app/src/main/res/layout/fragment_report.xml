@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"/>
 
             <RadioGroup
-                android:id="@+id/credit_debit_button_view"
+                android:id="@+id/goods_payment_button_view"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginStart="30dp"
@@ -154,7 +154,7 @@
 
 
                 <RadioButton
-                    android:id="@+id/credit_radio"
+                    android:id="@+id/goods_radio"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -166,12 +166,12 @@
                     android:paddingTop="3dp"
                     android:paddingRight="16dp"
                     android:paddingBottom="3dp"
-                    android:text="CREDIT"
+                    android:text="GOODS"
                     android:textSize="16sp"
                     android:textColor="@color/radio_flat_text_selector" />
 
                 <RadioButton
-                    android:id="@+id/debit_radio"
+                    android:id="@+id/payment_radio"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -182,7 +182,7 @@
                     android:paddingTop="3dp"
                     android:paddingRight="16dp"
                     android:paddingBottom="3dp"
-                    android:text="DEBIT"
+                    android:text="PAYMENT"
                     android:textSize="16sp"
                     android:textColor="@color/radio_flat_text_selector" />
 
@@ -191,7 +191,7 @@
             <TextView
                 android:id="@+id/report_description_label"
                 android:layout_width="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/credit_debit_button_view"
+                app:layout_constraintTop_toBottomOf="@+id/goods_payment_button_view"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="Remark:"
                 android:layout_marginStart="30dp"
@@ -241,7 +241,7 @@
             <androidx.constraintlayout.widget.Group
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="report_date_label,report_date,report_balance_label,report_balance,report_amount_label,report_amount,credit_debit_button_view,report_description_label,report_description,report_log_btn"
+                app:constraint_referenced_ids="report_date_label,report_date,report_balance_label,report_balance,report_amount_label,report_amount,goods_payment_button_view,report_description_label,report_description,report_log_btn"
                 android:id="@+id/group" />
 
 

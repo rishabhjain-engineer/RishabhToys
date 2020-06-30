@@ -148,10 +148,8 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
 
         if (receivedEntityType != null && 0 == receivedEntityType) {
             entity.entityType = 0
-            entity.txnType = 0 // We need to pay the amount
         } else if (receivedEntityType != null && 1 == receivedEntityType) {
             entity.entityType = 1
-            entity.txnType = 1 // We need to receive the amount
         }
         entity.txnDateTime = Utils.getTxnDateTime()
         return entity
@@ -162,16 +160,12 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
         txnHistoryEntity.date = Utils.getTxnDateTime()
         txnHistoryEntity.remark = "Creating account."
         txnHistoryEntity.txnAmount = addEntity_amount_et.text.toString().toFloat()
-        if (receivedEntityType != null && 0 == receivedEntityType) {
-            txnHistoryEntity.txnType = 0
-        } else if (receivedEntityType != null && 1 == receivedEntityType) {
-            txnHistoryEntity.txnType = 1
-        }
+        txnHistoryEntity.txnType = TxnType.OPENING_BALANCE
 
         return txnHistoryEntity
     }
 
-    fun validateUI(): Boolean {
+    private fun validateUI(): Boolean {
 
         if (TextUtils.isEmpty(addEntity_firm_name_et.text.toString())) {
             addEntity_firm_name.error = "Please enter company name."

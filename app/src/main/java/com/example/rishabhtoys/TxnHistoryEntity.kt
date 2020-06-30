@@ -25,13 +25,17 @@ class TxnHistoryEntity {
     @ColumnInfo(name = "txnAmount")
     var txnAmount: Float? = null
 
-    //0 ->Debit
-    //1->Credit
+    //0 ->Opening Balance
+    //1 ->Goods
+    //2 ->Payment
     @NonNull
     @ColumnInfo(name = "txnType")
-    var txnType: Int? = null
+    var txnType: TxnType? = null
 
     @ColumnInfo(name = "remark")
     var remark: String? = null
+
+    @ColumnInfo(name = "txnColor")
+    var txnColorCode : Int = 0
 
 }
