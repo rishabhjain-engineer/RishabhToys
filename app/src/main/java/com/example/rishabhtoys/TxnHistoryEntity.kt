@@ -32,6 +32,6 @@ class TxnHistoryEntity {
     var txnType: Int? = null
 
     @ColumnInfo(name = "remark")
-    lateinit var remark: String
+    var remark: String? = null
 
 }

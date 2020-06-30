@@ -131,10 +131,6 @@ class SplashActivity : BaseActivity() {
                 } else {
                     val authenticEncodedKey = sharePref?.getLockPattern()
                     val inputEncodedKey = CryptoHash.getEncodedString(inputPasswordValue)
-
-                    Log.e("Rishabh","retrieve correct encoded key: "+authenticEncodedKey);
-                    Log.e("Rishabh","received encoded key: "+inputEncodedKey);
-
                     if (authenticEncodedKey.equals(inputEncodedKey)) {
                         startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
                         finish()
@@ -148,8 +144,6 @@ class SplashActivity : BaseActivity() {
                 if (TextUtils.isEmpty(password_tv.text.toString())) {
                     showDialog("Error", "Please enter password !!", R.drawable.ic_alert_error_24dp)
                 } else if (inputPasswordValue.length != 6) {
-                    Log.e("Rishabh","lenght: "+inputPasswordValue.length)
-                    Log.e("Rishabh","value: "+inputPasswordValue)
                     showDialog(
                         "Error",
                         "Please enter valid password !!",
@@ -157,7 +151,6 @@ class SplashActivity : BaseActivity() {
                     )
                 } else {
                     val encodedKey = CryptoHash.getEncodedString(inputPasswordValue)
-                    Log.e("Rishabh","Setting encoded key: "+encodedKey);
                     sharePref?.setLockPattern(encodedKey)
                     isPasswordSet = true
                     startActivity(Intent(this@SplashActivity, SplashActivity::class.java))

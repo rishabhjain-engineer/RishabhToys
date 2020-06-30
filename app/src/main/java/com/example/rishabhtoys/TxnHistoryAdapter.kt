@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 class TxnHistoryAdapter : RecyclerView.Adapter<TxnHistoryAdapter.MyViewHolder>() {
 
     private var list : List<TxnHistoryEntity> = ArrayList()
+    private var balanceAmount:Float? = 0f
 
     fun setData(list : List<TxnHistoryEntity>){
         this.list = list
@@ -26,8 +27,23 @@ class TxnHistoryAdapter : RecyclerView.Adapter<TxnHistoryAdapter.MyViewHolder>()
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         holder.dateTv.text = list.get(position).date
-        holder.amountTv.text = list.get(position).txnAmount.toString()
-        holder.balanceTv.text = list.get(position).txnAmount.toString()
+
+
+        if(position == 0){
+            balanceAmount = list[0].txnAmount
+            holder.amountTv.text = list.get(position).txnAmount.toString()
+        }else{
+            if(0 == list[position].txnType) {
+                // txn type = debit; money will go out of our pocket
+                balanceAmount = balanceAmount?.minus(list[position].txnAmount!!)
+                holder.amountTv.text = "- ".plus(list.get(position).txnAmount.toString())
+            }else{
+                // txn type = credit; money will come to our pocket
+                balanceAmount = balanceAmount?.plus(list[position].txnAmount!!)
+                holder.amountTv.text = "+ ".plus(list.get(position).txnAmount.toString())
+            }
+        }
+        holder.balanceTv.text = balanceAmount.toString()
     }
 
 

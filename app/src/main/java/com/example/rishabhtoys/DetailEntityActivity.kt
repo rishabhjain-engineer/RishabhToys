@@ -40,11 +40,11 @@ class DetailEntityActivity : BaseActivity() {
                 d_e_company_name.text = it[0].entity.companyName
                 d_e_company_address.text = it[0].entity.companyAddress
                 d_e_gst.text = it[0].entity.gstNo
-                val entityType = it[0].entity.entityType.toString()
-                if ("0".equals(entityType)) {
+                val entityType = it[0].entity.entityType
+                if (0 == entityType) {
                     d_e_entity_type.text = Purchase
-                }else if("0".equals(entityType)){
-                    d_e_entity_type.text = Purchase
+                }else if(1 == entityType){
+                    d_e_entity_type.text = Sale
                 }else{
                     d_e_entity_type.text = "UnKnown"
                 }
