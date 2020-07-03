@@ -99,7 +99,8 @@
                     android:textSize="12sp"
                     android:hint="@string/gst"
                     android:maxLength="15"
-                    android:inputType="textCapWords" />
+                    android:textAllCaps="true"
+                    android:inputType="textCapCharacters" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

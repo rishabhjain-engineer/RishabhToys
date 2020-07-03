@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_report.*
 import kotlinx.coroutines.Dispatchers
@@ -74,6 +77,7 @@ class ReportFragment : Fragment() {
             report_balance.text = resources.getString(R.string.inr).plus(" ")
                 .plus(selectedEntityTransData?.totalAmount.toString())
             autoCompleteTextView.isCursorVisible = false
+            (activity as BaseActivity).hideKeyboard(activity!!)
         }
 
         autoCompleteTextView.addTextChangedListener(object : TextWatcher {
@@ -99,6 +103,20 @@ class ReportFragment : Fragment() {
             }
         }
 
+
+        report_amount.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (event != null && event.keyCode === KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                (activity as BaseActivity).hideKeyboard(activity!!)
+            }
+            false
+        })
+
+        autoCompleteTextView.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (event != null && event.keyCode === KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                (activity as BaseActivity).hideKeyboard(activity!!)
+            }
+            false
+        })
 
     }
 
