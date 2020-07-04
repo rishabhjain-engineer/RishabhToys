@@ -32,19 +32,19 @@ class TxnHistoryAdapter : RecyclerView.Adapter<TxnHistoryAdapter.MyViewHolder>()
 
         if(position == 0){
             balanceAmount = list[0].txnAmount
-            holder.amountTv.text = list.get(position).txnAmount.toString()
+            holder.amountTv.text = Utils.displayFormattedAmount(list.get(position).txnAmount)
         }else{
             if(TxnType.GOODS.equals(list[position].txnType)) {
                 balanceAmount = balanceAmount?.plus(list[position].txnAmount!!)
-                holder.amountTv.text = "+ ".plus(list.get(position).txnAmount.toString())
+                holder.amountTv.text = "+ ".plus(Utils.displayFormattedAmount(list.get(position).txnAmount))
             }else if(TxnType.PAYMENT.equals(list[position].txnType)){
                 balanceAmount = balanceAmount?.minus(list[position].txnAmount!!)
-                holder.amountTv.text = "- ".plus(list.get(position).txnAmount.toString())
+                holder.amountTv.text = "- ".plus(Utils.displayFormattedAmount(list.get(position).txnAmount))
                 holder.itemView.setBackgroundColor(list[position].txnColorCode)
             }
         }
 
-        holder.balanceTv.text = balanceAmount.toString()
+        holder.balanceTv.text = Utils.displayFormattedAmount(balanceAmount)
 
 
     }

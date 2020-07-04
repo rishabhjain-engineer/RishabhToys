@@ -2,8 +2,8 @@ package com.example.rishabhtoys
 
 import android.content.Context
 import android.os.Environment
-import android.util.Log
 import java.io.*
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -44,6 +44,11 @@ class Utils {
                 }
 
             }
+        }
+
+        fun displayFormattedAmount(amount : Float?) : String{
+            val df = DecimalFormat("##,##,###.##")
+            return df.format(amount)
         }
 
     }

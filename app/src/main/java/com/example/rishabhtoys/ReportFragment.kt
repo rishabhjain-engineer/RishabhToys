@@ -107,6 +107,17 @@ class ReportFragment : Fragment() {
         report_amount.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (event != null && event.keyCode === KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
                 (activity as BaseActivity).hideKeyboard(activity!!)
+
+                var inputAmount = report_amount.text.toString()
+
+                if (!TextUtils.isEmpty(inputAmount)) {
+                    if (inputAmount.contains(",")) {
+                        inputAmount = inputAmount.replace(",", "")
+                    }
+                    report_amount.setText(Utils.displayFormattedAmount(inputAmount.toFloat()))
+                    report_amount.setSelection(report_amount.text.length)
+                }
+
             }
             false
         })
@@ -125,7 +136,7 @@ class ReportFragment : Fragment() {
         val txnHistoryEntity = TxnHistoryEntity()
         txnHistoryEntity.entityId = selectedEntityTransData?.id
         txnHistoryEntity.date = report_date.text.toString()
-        txnHistoryEntity.txnAmount = report_amount.text.toString().toFloat()
+        txnHistoryEntity.txnAmount = report_amount.text.toString().replace(",","").toFloat()
 
         if (goods_payment_button_view.checkedRadioButtonId.equals(R.id.goods_radio)) {
             txnHistoryEntity.txnType = TxnType.GOODS
@@ -210,10 +221,10 @@ class ReportFragment : Fragment() {
     private fun calculateUpdatedAmount(): Float? {
         if (goods_payment_button_view.checkedRadioButtonId.equals(R.id.goods_radio)) {
             selectedEntityTransData?.totalAmount =
-                selectedEntityTransData?.totalAmount?.plus(report_amount.text.toString().toFloat())!!
+                selectedEntityTransData?.totalAmount?.plus(report_amount.text.toString().replace(",","").toFloat())!!
         } else if (goods_payment_button_view.checkedRadioButtonId.equals(R.id.payment_radio)) {
             selectedEntityTransData?.totalAmount =
-                selectedEntityTransData?.totalAmount?.minus(report_amount.text.toString().toFloat())!!
+                selectedEntityTransData?.totalAmount?.minus(report_amount.text.toString().replace(",","").toFloat())!!
         }
         return selectedEntityTransData?.totalAmount
 
