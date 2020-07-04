@@ -1,9 +1,9 @@
 package com.example.rishabhtoys
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import kotlinx.android.synthetic.main.activity_splash.*
 
 
@@ -11,11 +11,23 @@ class SplashActivity : BaseActivity() {
 
     private var digitsPressedCounter: Int = 0
     private var isPasswordSet: Boolean = false
-    private var inputPasswordValue : String = ""
+    private var inputPasswordValue: String = ""
+    private val permissionList = listOf<String>(
+        Manifest.permission.CAMERA,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    )
+    private val permissionsRequestCode = 1337
+    private lateinit var managePermissions: ManagePermissions
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+
+        // Initialize a new instance of ManagePermissions class
+        managePermissions = ManagePermissions(this, permissionList, permissionsRequestCode)
+        managePermissions.checkPermissions()
 
         if (TextUtils.isEmpty(sharePref?.getLockPattern())) {
             // Create password.
@@ -159,4 +171,26 @@ class SplashActivity : BaseActivity() {
             }
         }
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            permissionsRequestCode -> {
+                val isPermissionsGranted = managePermissions
+                    .processPermissionsResult(
+                        requestCode,
+                        permissions as Array<String>, grantResults
+                    )
+
+                if (!isPermissionsGranted) {
+                    finish()
+                }
+                return
+            }
+        }
+    }
+
 }
