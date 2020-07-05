@@ -4,6 +4,7 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity()
 class Entity {
@@ -46,7 +47,7 @@ class Entity {
 
     @NonNull
     @ColumnInfo(name = "dateOfCreation")
-    lateinit var txnDateTime: String
+    lateinit var txnDateTime: Date
 
     @ColumnInfo(name = "isActive")
     var isActive: Boolean = true

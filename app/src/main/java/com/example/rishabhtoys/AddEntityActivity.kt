@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class AddEntityActivity : BaseActivity(), DialogActionCallback {
@@ -151,13 +152,13 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
         } else if (receivedEntityType != null && 1 == receivedEntityType) {
             entity.entityType = 1
         }
-        entity.txnDateTime = Utils.getTxnDateTime()
+        entity.txnDateTime = Calendar.getInstance().time
         return entity
     }
 
     private fun createTxnHistory(): TxnHistoryEntity {
         val txnHistoryEntity = TxnHistoryEntity()
-        txnHistoryEntity.date = Utils.getTxnDateTime()
+        txnHistoryEntity.date = Calendar.getInstance().time
         txnHistoryEntity.remark = "Creating account."
         txnHistoryEntity.txnAmount = addEntity_amount_et.text.toString().toFloat()
         txnHistoryEntity.txnType = TxnType.OPENING_BALANCE

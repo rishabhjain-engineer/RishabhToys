@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -29,6 +32,7 @@ class ReportFragment : Fragment() {
     private lateinit var autoCompleteCustomAdapter: AutoCompleteCustomAdapter
     private var selectedEntityTransData: EntityTransData? = null
     private lateinit var mRepository: Repository
+    private lateinit var choosenDateString : String
 
 
     override fun onCreateView(
@@ -55,7 +59,9 @@ class ReportFragment : Fragment() {
             autoCompleteTextView.setAdapter(autoCompleteCustomAdapter) //setting the adapter data into the AutoCompleteTextView
         }
 
-        report_date.text = Utils.getTxnDateTime()
+        report_date.text = Utils.getCurrentDateString()
+        choosenDateString = Utils.getCurrentDateString()
+
         group.visibility = VISIBLE
         calender.visibility = GONE
 
@@ -68,6 +74,7 @@ class ReportFragment : Fragment() {
             calender.visibility = GONE
             group.visibility = View.VISIBLE
             report_date.text = dayOfMonth.toString().plus(".").plus(month + 1).plus(".").plus(year)
+            choosenDateString = dayOfMonth.toString().plus(".").plus(month + 1).plus(".").plus(year)
         }
 
 
@@ -135,7 +142,7 @@ class ReportFragment : Fragment() {
 
         val txnHistoryEntity = TxnHistoryEntity()
         txnHistoryEntity.entityId = selectedEntityTransData?.id
-        txnHistoryEntity.date = report_date.text.toString()
+        txnHistoryEntity.date = Utils.getDateFromString(choosenDateString)
         txnHistoryEntity.txnAmount = report_amount.text.toString().replace(",","").toFloat()
 
         if (goods_payment_button_view.checkedRadioButtonId.equals(R.id.goods_radio)) {

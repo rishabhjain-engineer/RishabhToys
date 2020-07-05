@@ -4,6 +4,7 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity()
 class TxnHistoryEntity {
@@ -19,7 +20,7 @@ class TxnHistoryEntity {
 
     @NonNull
     @ColumnInfo(name = "txnDate")
-    lateinit var date: String
+    lateinit var date: Date
 
     @NonNull
     @ColumnInfo(name = "txnAmount")

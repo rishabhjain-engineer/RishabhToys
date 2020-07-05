@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @Database(entities = [Entity::class, TxnHistoryEntity::class] , version = 1, exportSchema = false)
-@TypeConverters(Convertor::class)
+@TypeConverters(Convertor::class,DateConvertor::class)
 abstract class RishabhToysDB : RoomDatabase() {
 
     abstract fun entityDao() : EntityDao

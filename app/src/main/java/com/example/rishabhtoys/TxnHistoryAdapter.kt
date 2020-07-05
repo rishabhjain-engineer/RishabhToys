@@ -27,7 +27,8 @@ class TxnHistoryAdapter : RecyclerView.Adapter<TxnHistoryAdapter.MyViewHolder>()
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        holder.dateTv.text = list.get(position).date
+
+        holder.dateTv.text = Utils.getStringFromDate(list.get(position).date)
 
 
         if(position == 0){

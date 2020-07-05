@@ -22,7 +22,7 @@ interface EntityDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTxnLog(txnHistoryEntity: TxnHistoryEntity): Long
 
-    @Query("SELECT Entity.*, TxnHistoryEntity.* FROM Entity INNER JOIN TxnHistoryEntity ON Entity.Id = TxnHistoryEntity.entityId WHERE Entity.Id =:entityId")
+    @Query("SELECT Entity.*, TxnHistoryEntity.* FROM Entity INNER JOIN TxnHistoryEntity ON Entity.Id = TxnHistoryEntity.entityId WHERE Entity.Id =:entityId ORDER BY TxnHistoryEntity.txnDate ASC")
     fun getDetailInfoForEntity(entityId: Long): LiveData<List<DetailInfoForEntity>>
 
     @Query("UPDATE Entity SET totalAmount = :updatedAmount WHERE id = :entityId")
