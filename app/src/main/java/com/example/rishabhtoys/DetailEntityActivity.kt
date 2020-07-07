@@ -1,7 +1,9 @@
 package com.example.rishabhtoys
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +25,7 @@ class DetailEntityActivity : BaseActivity() {
         if (intent != null) {
             receivedEntityId = intent.getLongExtra("entityId", 0)
         }
+        Log.e("Rishabh","received entiy in detail entity: "+receivedEntityId)
 
         mLayoutManager = LinearLayoutManager(this)
         txn_history_rv.layoutManager = mLayoutManager
@@ -34,23 +37,32 @@ class DetailEntityActivity : BaseActivity() {
             mViewModel.getDetailEntityInfo(receivedEntityId)
         }
 
+        d_e_rate_list_iv.setOnClickListener {
+            val intent = Intent(this , RateListActivity::class.java)
+            intent.putExtra("purchaseId",receivedEntityId)
+            startActivity(intent)
+        }
+
         mViewModel.getData()?.observe(this, Observer<List<DetailInfoForEntity>> {
 
             if (it.isNotEmpty()) {
                 d_e_company_name.text = it[0].entity.companyName
                 d_e_company_address.text = it[0].entity.companyAddress
                 d_e_gst.text = it[0].entity.gstNo
-                val entityType = it[0].entity.entityType.toString()
-                if ("0".equals(entityType)) {
+                val entityType = it[0].entity.entityType
+                if (0 == entityType) {
                     d_e_entity_type.text = Purchase
-                }else if("0".equals(entityType)){
-                    d_e_entity_type.text = Purchase
+                    d_e_rate_list_iv.visibility = View.VISIBLE
+                }else if(1 == entityType){
+                    d_e_entity_type.text = Sale
+                    d_e_rate_list_iv.visibility = View.GONE
                 }else{
                     d_e_entity_type.text = "UnKnown"
                 }
                 d_e_company_owner.text = it[0].entity.companyOwner
                 d_e_primary_no.text = it[0].entity.primaryContactNo
                 d_e_alt_no.text = it[0].entity.altContactNo
+                d_e_rating.rating = it[0].entity.entityRating!!
             }
 
             mTxnHistoryList.clear()

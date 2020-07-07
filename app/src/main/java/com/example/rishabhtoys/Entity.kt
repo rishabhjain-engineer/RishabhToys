@@ -4,6 +4,7 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity()
 class Entity {
@@ -44,19 +45,15 @@ class Entity {
     @ColumnInfo(name = "entityType")
     var entityType: Int? = null
 
-
-    // 0 -> Debit
-    // 1 -> Credit
-    @NonNull
-    @ColumnInfo(name = "amountType")
-    var txnType: Int? = null
-
     @NonNull
     @ColumnInfo(name = "dateOfCreation")
-    lateinit var txnDateTime: String
+    lateinit var txnDateTime: Date
 
     @ColumnInfo(name = "isActive")
     var isActive: Boolean = true
 
+    @NonNull
+    @ColumnInfo(name = "entityRating")
+    var entityRating : Float? = null
 
 }

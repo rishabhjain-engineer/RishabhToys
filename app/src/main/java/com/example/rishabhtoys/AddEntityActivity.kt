@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class AddEntityActivity : BaseActivity(), DialogActionCallback {
@@ -18,6 +19,7 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
     // 0 for Purchase : Debit
     // 1 for Sale : Credit
     private var receivedEntityType: Int? = null
+    private var entityRating : Float = 0F
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,6 +107,10 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
 
         })
 
+        addEntity_rating.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+            entityRating = rating
+        }
+
         create_account.setOnClickListener {
 
             if (validateUI()) {
@@ -148,30 +154,26 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
 
         if (receivedEntityType != null && 0 == receivedEntityType) {
             entity.entityType = 0
-            entity.txnType = 0 // We need to pay the amount
         } else if (receivedEntityType != null && 1 == receivedEntityType) {
             entity.entityType = 1
-            entity.txnType = 1 // We need to receive the amount
         }
-        entity.txnDateTime = Utils.getTxnDateTime()
+        entity.txnDateTime = Calendar.getInstance().time
+        entity.entityRating = entityRating
+
         return entity
     }
 
     private fun createTxnHistory(): TxnHistoryEntity {
         val txnHistoryEntity = TxnHistoryEntity()
-        txnHistoryEntity.date = Utils.getTxnDateTime()
+        txnHistoryEntity.date = Calendar.getInstance().time
         txnHistoryEntity.remark = "Creating account."
         txnHistoryEntity.txnAmount = addEntity_amount_et.text.toString().toFloat()
-        if (receivedEntityType != null && 0 == receivedEntityType) {
-            txnHistoryEntity.txnType = 0
-        } else if (receivedEntityType != null && 1 == receivedEntityType) {
-            txnHistoryEntity.txnType = 1
-        }
+        txnHistoryEntity.txnType = TxnType.OPENING_BALANCE
 
         return txnHistoryEntity
     }
 
-    fun validateUI(): Boolean {
+    private fun validateUI(): Boolean {
 
         if (TextUtils.isEmpty(addEntity_firm_name_et.text.toString())) {
             addEntity_firm_name.error = "Please enter company name."
@@ -187,6 +189,8 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
             addEntity_contact_alternate.error = "Please enter valid alternate contact no."
         } else if (TextUtils.isEmpty(addEntity_amount_et.editableText.toString())) {
             addEntity_amount.error = "Please enter opening amount balance."
+        }else if (entityRating == 0f) {
+            showDialog("Error" , "Please give rating to the organisation .", R.drawable.ic_alert_error_24dp)
         } else {
             return true
         }

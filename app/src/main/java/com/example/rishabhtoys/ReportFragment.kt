@@ -4,17 +4,23 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_report.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -26,6 +32,7 @@ class ReportFragment : Fragment() {
     private lateinit var autoCompleteCustomAdapter: AutoCompleteCustomAdapter
     private var selectedEntityTransData: EntityTransData? = null
     private lateinit var mRepository: Repository
+    private lateinit var choosenDateString : String
 
 
     override fun onCreateView(
@@ -52,7 +59,9 @@ class ReportFragment : Fragment() {
             autoCompleteTextView.setAdapter(autoCompleteCustomAdapter) //setting the adapter data into the AutoCompleteTextView
         }
 
-        report_date.text = Utils.getTxnDateTime()
+        report_date.text = Utils.getCurrentDateString()
+        choosenDateString = Utils.getCurrentDateString()
+
         group.visibility = VISIBLE
         calender.visibility = GONE
 
@@ -65,6 +74,7 @@ class ReportFragment : Fragment() {
             calender.visibility = GONE
             group.visibility = View.VISIBLE
             report_date.text = dayOfMonth.toString().plus(".").plus(month + 1).plus(".").plus(year)
+            choosenDateString = dayOfMonth.toString().plus(".").plus(month + 1).plus(".").plus(year)
         }
 
 
@@ -74,6 +84,7 @@ class ReportFragment : Fragment() {
             report_balance.text = resources.getString(R.string.inr).plus(" ")
                 .plus(selectedEntityTransData?.totalAmount.toString())
             autoCompleteTextView.isCursorVisible = false
+            (activity as BaseActivity).hideKeyboard(activity!!)
         }
 
         autoCompleteTextView.addTextChangedListener(object : TextWatcher {
@@ -100,19 +111,45 @@ class ReportFragment : Fragment() {
         }
 
 
+        report_amount.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (event != null && event.keyCode === KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                (activity as BaseActivity).hideKeyboard(activity!!)
+
+                var inputAmount = report_amount.text.toString()
+
+                if (!TextUtils.isEmpty(inputAmount)) {
+                    if (inputAmount.contains(",")) {
+                        inputAmount = inputAmount.replace(",", "")
+                    }
+                    report_amount.setText(Utils.displayFormattedAmount(inputAmount.toFloat()))
+                    report_amount.setSelection(report_amount.text.length)
+                }
+
+            }
+            false
+        })
+
+        autoCompleteTextView.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (event != null && event.keyCode === KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                (activity as BaseActivity).hideKeyboard(activity!!)
+            }
+            false
+        })
+
     }
 
     private fun submitLog() {
 
         val txnHistoryEntity = TxnHistoryEntity()
         txnHistoryEntity.entityId = selectedEntityTransData?.id
-        txnHistoryEntity.date = report_date.text.toString()
-        txnHistoryEntity.txnAmount = report_amount.text.toString().toFloat()
+        txnHistoryEntity.date = Utils.getDateFromString(choosenDateString)
+        txnHistoryEntity.txnAmount = report_amount.text.toString().replace(",","").toFloat()
 
-        if (credit_debit_button_view.checkedRadioButtonId.equals(R.id.credit_radio)) {
-            txnHistoryEntity.txnType = 1
-        } else if (credit_debit_button_view.checkedRadioButtonId.equals(R.id.debit_radio)) {
-            txnHistoryEntity.txnType = 0
+        if (goods_payment_button_view.checkedRadioButtonId.equals(R.id.goods_radio)) {
+            txnHistoryEntity.txnType = TxnType.GOODS
+        } else if (goods_payment_button_view.checkedRadioButtonId.equals(R.id.payment_radio)) {
+            txnHistoryEntity.txnType = TxnType.PAYMENT
+            txnHistoryEntity.txnColorCode = txnPaymentColor
         }
         if (!TextUtils.isEmpty(report_description.text.toString())) {
             txnHistoryEntity.remark = report_description.text.toString()
@@ -174,13 +211,27 @@ class ReportFragment : Fragment() {
         return false
     }
 
+
+    /*
+    *
+    * Purchase Mode :
+    * if goods option selected : add amount to the balance, since we need to pay to factory
+    * if payment option selected: deduct amount from balance: since we had pay x amount.
+    *
+    *
+    * Sale Mode:
+    * if good option selected: add amount to balance, since total amount we have to take from our party
+    * if payment option selected: deduct amount from balance, since party paid us x amount.
+    *
+    * */
+
     private fun calculateUpdatedAmount(): Float? {
-        if (credit_debit_button_view.checkedRadioButtonId.equals(R.id.credit_radio)) {
+        if (goods_payment_button_view.checkedRadioButtonId.equals(R.id.goods_radio)) {
             selectedEntityTransData?.totalAmount =
-                selectedEntityTransData?.totalAmount?.plus(report_amount.text.toString().toFloat())!!
-        } else if (credit_debit_button_view.checkedRadioButtonId.equals(R.id.debit_radio)) {
+                selectedEntityTransData?.totalAmount?.plus(report_amount.text.toString().replace(",","").toFloat())!!
+        } else if (goods_payment_button_view.checkedRadioButtonId.equals(R.id.payment_radio)) {
             selectedEntityTransData?.totalAmount =
-                selectedEntityTransData?.totalAmount?.minus(report_amount.text.toString().toFloat())!!
+                selectedEntityTransData?.totalAmount?.minus(report_amount.text.toString().replace(",","").toFloat())!!
         }
         return selectedEntityTransData?.totalAmount
 

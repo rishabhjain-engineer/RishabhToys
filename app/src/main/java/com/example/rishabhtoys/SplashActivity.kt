@@ -1,9 +1,9 @@
 package com.example.rishabhtoys
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import kotlinx.android.synthetic.main.activity_splash.*
 
 
@@ -11,11 +11,23 @@ class SplashActivity : BaseActivity() {
 
     private var digitsPressedCounter: Int = 0
     private var isPasswordSet: Boolean = false
-    private var inputPasswordValue : String = ""
+    private var inputPasswordValue: String = ""
+    private val permissionList = listOf<String>(
+        Manifest.permission.CAMERA,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    )
+    private val permissionsRequestCode = 1337
+    private lateinit var managePermissions: ManagePermissions
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+
+        // Initialize a new instance of ManagePermissions class
+        managePermissions = ManagePermissions(this, permissionList, permissionsRequestCode)
+        managePermissions.checkPermissions()
 
         if (TextUtils.isEmpty(sharePref?.getLockPattern())) {
             // Create password.
@@ -131,10 +143,6 @@ class SplashActivity : BaseActivity() {
                 } else {
                     val authenticEncodedKey = sharePref?.getLockPattern()
                     val inputEncodedKey = CryptoHash.getEncodedString(inputPasswordValue)
-
-                    Log.e("Rishabh","retrieve correct encoded key: "+authenticEncodedKey);
-                    Log.e("Rishabh","received encoded key: "+inputEncodedKey);
-
                     if (authenticEncodedKey.equals(inputEncodedKey)) {
                         startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
                         finish()
@@ -148,8 +156,6 @@ class SplashActivity : BaseActivity() {
                 if (TextUtils.isEmpty(password_tv.text.toString())) {
                     showDialog("Error", "Please enter password !!", R.drawable.ic_alert_error_24dp)
                 } else if (inputPasswordValue.length != 6) {
-                    Log.e("Rishabh","lenght: "+inputPasswordValue.length)
-                    Log.e("Rishabh","value: "+inputPasswordValue)
                     showDialog(
                         "Error",
                         "Please enter valid password !!",
@@ -157,7 +163,6 @@ class SplashActivity : BaseActivity() {
                     )
                 } else {
                     val encodedKey = CryptoHash.getEncodedString(inputPasswordValue)
-                    Log.e("Rishabh","Setting encoded key: "+encodedKey);
                     sharePref?.setLockPattern(encodedKey)
                     isPasswordSet = true
                     startActivity(Intent(this@SplashActivity, SplashActivity::class.java))
@@ -166,4 +171,26 @@ class SplashActivity : BaseActivity() {
             }
         }
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            permissionsRequestCode -> {
+                val isPermissionsGranted = managePermissions
+                    .processPermissionsResult(
+                        requestCode,
+                        permissions as Array<String>, grantResults
+                    )
+
+                if (!isPermissionsGranted) {
+                    finish()
+                }
+                return
+            }
+        }
+    }
+
 }

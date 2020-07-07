@@ -45,7 +45,9 @@
                 android:layout_margin="30dp"
                 android:completionThreshold="1"
                 android:hint="@string/type_business_organisation_name"
+                android:imeOptions="actionDone"
                 app:layout_constraintStart_toStartOf="parent"
+                android:inputType="textCapWords"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:ems="20" />
 
@@ -131,16 +133,17 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="30dp"
                 android:textStyle="normal"
-                android:inputType="number"
-                android:maxLength="7"
+                android:inputType="numberDecimal"
+                android:maxLength="12"
                 android:hint="Enter Txn Amount."
+                android:imeOptions="actionDone"
                 android:textColor="@color/night"
                 app:layout_constraintStart_toEndOf="@+id/report_amount_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_height="wrap_content"/>
 
             <RadioGroup
-                android:id="@+id/credit_debit_button_view"
+                android:id="@+id/goods_payment_button_view"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginStart="30dp"
@@ -154,7 +157,7 @@
 
 
                 <RadioButton
-                    android:id="@+id/credit_radio"
+                    android:id="@+id/goods_radio"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -166,12 +169,12 @@
                     android:paddingTop="3dp"
                     android:paddingRight="16dp"
                     android:paddingBottom="3dp"
-                    android:text="CREDIT"
+                    android:text="GOODS"
                     android:textSize="16sp"
                     android:textColor="@color/radio_flat_text_selector" />
 
                 <RadioButton
-                    android:id="@+id/debit_radio"
+                    android:id="@+id/payment_radio"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -182,7 +185,7 @@
                     android:paddingTop="3dp"
                     android:paddingRight="16dp"
                     android:paddingBottom="3dp"
-                    android:text="DEBIT"
+                    android:text="PAYMENT"
                     android:textSize="16sp"
                     android:textColor="@color/radio_flat_text_selector" />
 
@@ -191,9 +194,9 @@
             <TextView
                 android:id="@+id/report_description_label"
                 android:layout_width="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/credit_debit_button_view"
+                app:layout_constraintTop_toBottomOf="@+id/goods_payment_button_view"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="Description:"
+                android:text="Remark:"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:textSize="16sp"
@@ -235,13 +238,13 @@
                 android:layout_marginTop="30dp"
                 android:background="@drawable/bg_btn_border"
                 android:textColor="@color/white"
-                android:layout_height="40dp"/>
+                android:layout_height="60dp"/>
 
 
             <androidx.constraintlayout.widget.Group
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="report_date_label,report_date,report_balance_label,report_balance,report_amount_label,report_amount,credit_debit_button_view,report_description_label,report_description,report_log_btn"
+                app:constraint_referenced_ids="report_date_label,report_date,report_balance_label,report_balance,report_amount_label,report_amount,goods_payment_button_view,report_description_label,report_description,report_log_btn"
                 android:id="@+id/group" />
 
 

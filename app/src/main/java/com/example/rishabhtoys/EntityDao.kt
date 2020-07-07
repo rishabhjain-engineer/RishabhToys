@@ -22,7 +22,7 @@ interface EntityDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTxnLog(txnHistoryEntity: TxnHistoryEntity): Long
 
-    @Query("SELECT Entity.*, TxnHistoryEntity.* FROM Entity INNER JOIN TxnHistoryEntity ON Entity.Id = TxnHistoryEntity.entityId WHERE Entity.Id =:entityId")
+    @Query("SELECT Entity.*, TxnHistoryEntity.* FROM Entity INNER JOIN TxnHistoryEntity ON Entity.Id = TxnHistoryEntity.entityId WHERE Entity.Id =:entityId ORDER BY TxnHistoryEntity.txnDate ASC")
     fun getDetailInfoForEntity(entityId: Long): LiveData<List<DetailInfoForEntity>>
 
     @Query("UPDATE Entity SET totalAmount = :updatedAmount WHERE id = :entityId")
@@ -39,7 +39,6 @@ interface EntityDao {
         return float1
     }
 
-
     @Transaction
     fun createEntityAndInsertTxnHistory(entity: Entity, txnHistoryEntity: TxnHistoryEntity): Long {
         val id = insert(entity)
@@ -47,5 +46,11 @@ interface EntityDao {
         val long = insertTxnLog(txnHistoryEntity)
         return long
     }
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun addItemToRateList(rateListEntity : RateListEntity): Long
+
+    @Query("SELECT * FROM RateListEntity WHERE purchaseId = :purchaseId")
+    fun getRateItemList(purchaseId : Long) : LiveData<List<RateListEntity>>
 
 }

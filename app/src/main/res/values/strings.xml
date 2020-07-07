@@ -5,6 +5,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="organisation_name">Organisation Name:</string>
     <string name="detailed_info">Detailed Info</string>
+    <string name="edit">EDIT</string>
     <string name="address">Address:</string>
     <string name="inr">INR:</string>
     <string name="primary_contact_no">Primary Contact No:</string>
@@ -14,7 +15,11 @@
     <string name="transaction_history">Transaction History</string>
     <string name="add_business_entity">Add Business Entity</string>
     <string name="company_s_name">Company\'s Name</string>
+    <string name="item_name">Item Name</string>
+    <string name="item_price">Item Price</string>
     <string name="daily_logs">Daily Logs</string>
+    <string name="add_item">Add Item</string>
+    <string name="rate_list">Rate List</string>
     <string name="type_business_organisation_name">Type organisation name</string>
     <string name="opening_balance">Opening Balance</string>
     <string name="create_account">Create Account</string>

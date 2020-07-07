@@ -42,7 +42,6 @@ class VendorFragment : Fragment(), SendEntityObject {
 
         repository.mSaleEntities?.observe(activity!!, Observer<List<EntityTransData>> {
             if (it != null && it.isNotEmpty()) {
-                Log.e("Rishabh", "sale size: " + it.size)
                 mSaleList = it
                 mBuyerFragmentAdapter.setData(mSaleList)
                 mBuyerFragmentAdapter.notifyDataSetChanged()
