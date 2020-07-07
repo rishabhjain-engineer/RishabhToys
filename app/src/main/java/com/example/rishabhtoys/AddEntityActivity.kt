@@ -19,6 +19,7 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
     // 0 for Purchase : Debit
     // 1 for Sale : Credit
     private var receivedEntityType: Int? = null
+    private var entityRating : Float = 0F
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,6 +107,10 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
 
         })
 
+        addEntity_rating.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+            entityRating = rating
+        }
+
         create_account.setOnClickListener {
 
             if (validateUI()) {
@@ -153,6 +158,8 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
             entity.entityType = 1
         }
         entity.txnDateTime = Calendar.getInstance().time
+        entity.entityRating = entityRating
+
         return entity
     }
 
@@ -182,6 +189,8 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
             addEntity_contact_alternate.error = "Please enter valid alternate contact no."
         } else if (TextUtils.isEmpty(addEntity_amount_et.editableText.toString())) {
             addEntity_amount.error = "Please enter opening amount balance."
+        }else if (entityRating == 0f) {
+            showDialog("Error" , "Please give rating to the organisation .", R.drawable.ic_alert_error_24dp)
         } else {
             return true
         }

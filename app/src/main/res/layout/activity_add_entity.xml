@@ -33,15 +33,15 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:background="@color/backgroundGrey">
+        android:background="@color/backgroundGrey"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
             android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginBottom="30dp">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -57,9 +57,9 @@
                     android:id="@+id/addEntity_firm_name_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
                     android:hint="@string/company_s_name"
-                    android:inputType="textCapWords" />
+                    android:inputType="textCapWords"
+                    android:textSize="12sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,8 +78,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/address"
-                    android:textSize="12sp"
-                    android:inputType="textCapWords" />
+                    android:inputType="textCapWords"
+                    android:textSize="12sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,11 +96,11 @@
                     android:id="@+id/addEntity_gst_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
                     android:hint="@string/gst"
+                    android:inputType="textCapCharacters"
                     android:maxLength="15"
                     android:textAllCaps="true"
-                    android:inputType="textCapCharacters" />
+                    android:textSize="12sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -117,9 +117,9 @@
                     android:id="@+id/addEntity_owner_name_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
                     android:hint="@string/owner_s_name"
-                    android:inputType="textCapWords" />
+                    android:inputType="textCapWords"
+                    android:textSize="12sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -137,10 +137,10 @@
                     android:id="@+id/addEntity_contact_primary_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLength="10"
-                    android:textSize="12sp"
                     android:hint="@string/primary_contact_no"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:textSize="12sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -157,10 +157,10 @@
                     android:id="@+id/addEntity_contact_alt_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLength="10"
-                    android:textSize="12sp"
                     android:hint="@string/alternate_contact_no"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:textSize="12sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -178,25 +178,37 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/opening_balance"
-                    android:textSize="12sp"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textSize="12sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+
+            <RatingBar
+                android:id="@+id/addEntity_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:max="5"
+                android:numStars="5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addEntity_amount" />
+
 
             <Button
                 android:id="@+id/create_account"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
                 android:background="@color/colorPrimary"
                 android:text="@string/create_account"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="17sp"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_amount" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addEntity_rating" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

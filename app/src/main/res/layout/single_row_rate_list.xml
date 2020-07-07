@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/item_sr_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingRight="30dp"
+        android:paddingStart="30dp"
+        android:textSize="15sp"
+        android:text="1"/>
+
+    <TextView
+        android:id="@+id/item_name_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/item_sr_tv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/item_price_tv"
+        android:textSize="15sp"
+        android:gravity="start"
+        android:paddingStart="30dp"
+        android:text="Tedddy Bear"/>
+
+    <TextView
+        android:id="@+id/item_price_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="15sp"
+        android:gravity="end"
+        android:paddingEnd="30dp"
+        app:layout_constraintStart_toEndOf="@id/item_name_tv"
+        app:layout_constraintLeft_toRightOf="@id/item_name_tv"
+        android:text="150"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@id/item_price_tv"
+        android:background="?android:attr/dividerVertical"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

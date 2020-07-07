@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [Entity::class, TxnHistoryEntity::class] , version = 1, exportSchema = false)
+@Database(entities = [Entity::class, TxnHistoryEntity::class , RateListEntity::class] , version = 1, exportSchema = false)
 @TypeConverters(Convertor::class,DateConvertor::class)
 abstract class RishabhToysDB : RoomDatabase() {
 

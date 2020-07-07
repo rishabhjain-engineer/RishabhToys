@@ -39,7 +39,6 @@ interface EntityDao {
         return float1
     }
 
-
     @Transaction
     fun createEntityAndInsertTxnHistory(entity: Entity, txnHistoryEntity: TxnHistoryEntity): Long {
         val id = insert(entity)
@@ -47,5 +46,11 @@ interface EntityDao {
         val long = insertTxnLog(txnHistoryEntity)
         return long
     }
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun addItemToRateList(rateListEntity : RateListEntity): Long
+
+    @Query("SELECT * FROM RateListEntity WHERE purchaseId = :purchaseId")
+    fun getRateItemList(purchaseId : Long) : LiveData<List<RateListEntity>>
 
 }

@@ -52,5 +52,8 @@ class Entity {
     @ColumnInfo(name = "isActive")
     var isActive: Boolean = true
 
+    @NonNull
+    @ColumnInfo(name = "entityRating")
+    var entityRating : Float? = null
 
 }

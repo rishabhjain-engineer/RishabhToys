@@ -15,6 +15,7 @@ class Repository(application: Application) {
     private var listOfDetailEntityInfo: LiveData<List<DetailInfoForEntity>>? = null
     private var insertAndUpdateQueryStatus: Long? = 0
     private var createAndInsertQueryStatus: Long? = 0
+    private var addItemQueryStatus: Long? = 0
 
     init {
         val db: RishabhToysDB? = RishabhToysDB.getDatabase(application)
@@ -64,6 +65,17 @@ class Repository(application: Application) {
                 mEntityDao?.insertAndUpdateTxn(txnHistoryEntity, entityId, totalAmount)
         }
         return insertAndUpdateQueryStatus
+    }
+
+    suspend fun addItemToRateList(rateListEntity: RateListEntity) : Long?{
+        withContext(Dispatchers.IO){
+            addItemQueryStatus = mEntityDao?.addItemToRateList(rateListEntity)
+        }
+        return addItemQueryStatus
+    }
+
+    fun getRateList(purchaseId: Long) : LiveData<List<RateListEntity>>? {
+        return mEntityDao?.getRateItemList(purchaseId)
     }
 
 }
