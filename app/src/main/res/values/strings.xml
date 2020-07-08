@@ -14,6 +14,7 @@
     <string name="gst">GST No:</string>
     <string name="transaction_history">Transaction History</string>
     <string name="add_business_entity">Add Business Entity</string>
+    <string name="update_business_entity">Update Business Entity</string>
     <string name="company_s_name">Company\'s Name</string>
     <string name="item_name">Item Name</string>
     <string name="item_price">Item Price</string>
@@ -23,4 +24,5 @@
     <string name="type_business_organisation_name">Type organisation name</string>
     <string name="opening_balance">Opening Balance</string>
     <string name="create_account">Create Account</string>
+    <string name="update_account">Update Account</string>
 </resources>

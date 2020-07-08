@@ -25,7 +25,6 @@ class DetailEntityActivity : BaseActivity() {
         if (intent != null) {
             receivedEntityId = intent.getLongExtra("entityId", 0)
         }
-        Log.e("Rishabh","received entiy in detail entity: "+receivedEntityId)
 
         mLayoutManager = LinearLayoutManager(this)
         txn_history_rv.layoutManager = mLayoutManager
@@ -40,6 +39,12 @@ class DetailEntityActivity : BaseActivity() {
         d_e_rate_list_iv.setOnClickListener {
             val intent = Intent(this , RateListActivity::class.java)
             intent.putExtra("purchaseId",receivedEntityId)
+            startActivity(intent)
+        }
+
+        d_e_edit.setOnClickListener {
+            val intent = Intent(this , UpdateEntityActivity::class.java)
+            intent.putExtra("entityId",receivedEntityId)
             startActivity(intent)
         }
 

@@ -53,4 +53,10 @@ interface EntityDao {
     @Query("SELECT * FROM RateListEntity WHERE purchaseId = :purchaseId")
     fun getRateItemList(purchaseId : Long) : LiveData<List<RateListEntity>>
 
+    @Query("SELECT * FROM ENTITY WHERE id = :id")
+    fun getEntityBasicDetail(id : Long) : Entity
+
+    @Update
+    fun updateEntity(entity : Entity) : Int
+
 }
