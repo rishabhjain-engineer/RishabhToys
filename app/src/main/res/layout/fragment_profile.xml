@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <Button
+        android:id="@+id/create_backup_btn"
+        android:layout_width="wrap_content"
+        android:text="Create Backup"
         android:gravity="center"
-        android:text="Profile Fragment" />
+        android:layout_gravity="center"
+        android:layout_height="60dp"/>
 
 </FrameLayout>

@@ -34,7 +34,7 @@ class Utils {
 
             // Get access to Db directory location and fetch all files in it
             val data = Environment.getDataDirectory()
-            val currentDbPath = "//data//com.example.rishabhtoys//databases//"
+            val currentDbPath = "//data//com.business.rishabhtoys//databases//"
             val dbDirectory = File(data, currentDbPath)
             val fileList = dbDirectory.listFiles()
 

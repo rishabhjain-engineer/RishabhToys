@@ -25,4 +25,6 @@
     <string name="opening_balance">Opening Balance</string>
     <string name="create_account">Create Account</string>
     <string name="update_account">Update Account</string>
+    <string name="APP_KEY">wkohl3s6028f53t</string>
+
 </resources>
