@@ -184,6 +184,26 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/updateEntity_opening_date"
+                style="@style/MyTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/updateEntity_amount">
+
+                <EditText
+                    android:id="@+id/updateEntity_opening_date_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/opening_date"
+                    android:inputType="none"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
             <RatingBar
                 android:id="@+id/updateEntity_rating"
                 android:layout_width="wrap_content"
@@ -192,7 +212,7 @@
                 android:numStars="5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/updateEntity_amount" />
+                app:layout_constraintTop_toBottomOf="@+id/updateEntity_opening_date" />
 
 
             <Button

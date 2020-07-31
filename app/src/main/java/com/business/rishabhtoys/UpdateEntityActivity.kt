@@ -71,6 +71,10 @@ class UpdateEntityActivity : BaseActivity(), DialogActionCallback {
                 updateEntity_amount_et.isEnabled = false
                 updateEntity_amount_et.inputType = InputType.TYPE_NULL
 
+                updateEntity_opening_date_et.setText(Utils.getStringFromDate(entity?.txnDateTime!!))
+                updateEntity_opening_date_et.isEnabled = false
+                updateEntity_opening_date_et.inputType = InputType.TYPE_NULL
+
                 rating = entity?.entityRating!!
                 updateEntity_rating.rating = rating
 
