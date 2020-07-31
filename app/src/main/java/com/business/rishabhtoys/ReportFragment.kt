@@ -147,7 +147,6 @@ class ReportFragment : Fragment() {
             txnHistoryEntity.txnType = TxnType.GOODS
         } else if (goods_payment_button_view.checkedRadioButtonId.equals(R.id.payment_radio)) {
             txnHistoryEntity.txnType = TxnType.PAYMENT
-            txnHistoryEntity.txnColorCode = txnPaymentColor
         }
         if (!TextUtils.isEmpty(report_description.text.toString())) {
             txnHistoryEntity.remark = report_description.text.toString()

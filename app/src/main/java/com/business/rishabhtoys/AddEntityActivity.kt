@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_add_entity.*
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +21,7 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
     // 1 for Sale : Credit
     private var receivedEntityType: Int? = null
     private var entityRating : Float = 0F
+    private lateinit var choosenDateString : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,9 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
         if (intent != null) {
             receivedEntityType = intent.getIntExtra(Entity_Type, 0)
         }
+
+        add_entity_calender.visibility = View.GONE
+        nested_scroll_view.visibility = View.VISIBLE
 
         addEntity_firm_name_et.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -111,6 +116,21 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
             entityRating = rating
         }
 
+        addEntity_openingDate_et.setText(Utils.getCurrentDateString())
+        choosenDateString = Utils.getCurrentDateString()
+
+        addEntity_openingDate_et.setOnClickListener {
+            add_entity_calender.visibility = View.VISIBLE
+            nested_scroll_view.visibility = View.GONE
+        }
+
+        add_entity_calender.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            add_entity_calender.visibility = View.GONE
+            nested_scroll_view.visibility = View.VISIBLE
+            addEntity_openingDate_et.setText(dayOfMonth.toString().plus(".").plus(month + 1).plus(".").plus(year))
+            choosenDateString = dayOfMonth.toString().plus(".").plus(month + 1).plus(".").plus(year)
+        }
+
         create_account.setOnClickListener {
 
             if (validateUI()) {
@@ -157,7 +177,7 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
         } else if (receivedEntityType != null && 1 == receivedEntityType) {
             entity.entityType = 1
         }
-        entity.txnDateTime = Calendar.getInstance().time
+        entity.txnDateTime = Utils.getDateFromString(choosenDateString)
         entity.entityRating = entityRating
 
         return entity
@@ -165,7 +185,7 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
 
     private fun createTxnHistory(): TxnHistoryEntity {
         val txnHistoryEntity = TxnHistoryEntity()
-        txnHistoryEntity.date = Calendar.getInstance().time
+        txnHistoryEntity.date = Utils.getDateFromString(choosenDateString)
         txnHistoryEntity.remark = "Creating account."
         txnHistoryEntity.txnAmount = addEntity_amount_et.text.toString().toFloat()
         txnHistoryEntity.txnType = TxnType.OPENING_BALANCE
@@ -202,6 +222,17 @@ class AddEntityActivity : BaseActivity(), DialogActionCallback {
         if (positiveAction) {
             finish()
         }
+    }
+
+    override fun onBackPressed() {
+
+        if(add_entity_calender.visibility == View.VISIBLE){
+            add_entity_calender.visibility = View.GONE
+            nested_scroll_view.visibility = View.VISIBLE
+        }else{
+            super.onBackPressed()
+        }
+
     }
 
 }

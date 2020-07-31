@@ -9,13 +9,13 @@ interface EntityDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(entity: Entity): Long
 
-    @Query("SELECT companyName, id, totalAmount from Entity WHERE entityType = 0 ")
+    @Query("SELECT companyName, id, totalAmount, dateOfCreation from Entity WHERE entityType = 0 ")
     fun getPurchaseEntity(): LiveData<List<EntityTransData>>
 
-    @Query("SELECT companyName, id, totalAmount from Entity WHERE entityType = 1 ")
+    @Query("SELECT companyName, id, totalAmount, dateOfCreation from Entity WHERE entityType = 1 ")
     fun getSaleEntity(): LiveData<List<EntityTransData>>
 
-    @Query("SELECT companyName , id , totalAmount from Entity ")
+    @Query("SELECT companyName , id , totalAmount, dateOfCreation from Entity ")
     fun getListOfCompanyName(): List<EntityTransData>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

@@ -1,5 +1,6 @@
 package com.business.rishabhtoys
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +41,7 @@ class TxnHistoryAdapter : RecyclerView.Adapter<TxnHistoryAdapter.MyViewHolder>()
             }else if(TxnType.PAYMENT.equals(list[position].txnType)){
                 balanceAmount = balanceAmount?.minus(list[position].txnAmount!!)
                 holder.amountTv.text = "- ".plus(Utils.displayFormattedAmount(list.get(position).txnAmount))
-                holder.itemView.setBackgroundColor(list[position].txnColorCode)
+                holder.itemView.setBackgroundColor(Color.parseColor("#FFE08D"))
             }
         }
 

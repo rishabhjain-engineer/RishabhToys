@@ -23,6 +23,7 @@
     <string name="rate_list">Rate List</string>
     <string name="type_business_organisation_name">Type organisation name</string>
     <string name="opening_balance">Opening Balance</string>
+    <string name="opening_date">Account Opening Date</string>
     <string name="create_account">Create Account</string>
     <string name="update_account">Update Account</string>
     <string name="APP_KEY">wkohl3s6028f53t</string>

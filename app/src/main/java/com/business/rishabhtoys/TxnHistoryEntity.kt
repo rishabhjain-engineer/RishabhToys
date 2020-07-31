@@ -35,8 +35,4 @@ class TxnHistoryEntity {
 
     @ColumnInfo(name = "remark")
     var remark: String? = null
-
-    @ColumnInfo(name = "txnColor")
-    var txnColorCode : Int = 0
-
 }
