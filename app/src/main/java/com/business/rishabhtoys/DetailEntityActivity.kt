@@ -7,6 +7,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_detail_entity.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class DetailEntityActivity : BaseActivity() {
 
@@ -72,6 +77,16 @@ class DetailEntityActivity : BaseActivity() {
             mTxnHistoryList.clear()
             it.forEach {
                 mTxnHistoryList.add(it.txnHistoryEntity)
+            }
+
+            if(mTxnHistoryList.isNotEmpty()) {
+                Collections.sort(mTxnHistoryList , object : Comparator<TxnHistoryEntity> {
+                    var dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy",Locale.ENGLISH)
+                    override fun compare(o1: TxnHistoryEntity?, o2: TxnHistoryEntity?): Int =
+                        dateFormat.parse(Utils.getStringFromDate(o1?.date!!)).compareTo(dateFormat.parse(Utils.getStringFromDate(o2?.date!!)))
+
+                })
+
                 mAdapter.setData(mTxnHistoryList)
                 mAdapter.notifyDataSetChanged()
             }

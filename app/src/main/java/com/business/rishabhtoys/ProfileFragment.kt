@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -24,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 /**
@@ -43,7 +45,13 @@ class ProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
+        //initially progressbar is off
+        backup_group.visibility = View.GONE
+
+
         create_backup_btn.setOnClickListener {
+
             googleSignIn()
         }
     }
@@ -76,7 +84,7 @@ class ProfileFragment : Fragment() {
 
         GoogleSignIn.getSignedInAccountFromIntent(data)
             .addOnSuccessListener {
-
+                backup_group.visibility = View.VISIBLE
                 Log.e("Rishabh", "sign in success")
                 val credentials: GoogleAccountCredential = GoogleAccountCredential
                     .usingOAuth2(activity!!, Collections.singleton(DriveScopes.DRIVE_FILE))
@@ -106,7 +114,7 @@ class ProfileFragment : Fragment() {
                     // Create backup folder
 
                     val folderMetadata = File()
-                    folderMetadata.name = Utils.getCurrentDateString()
+                    folderMetadata.name = Calendar.getInstance().time.toString()
                     folderMetadata.mimeType = "application/vnd.google-apps.folder"
 
                     val folder: File =
@@ -132,7 +140,13 @@ class ProfileFragment : Fragment() {
                                     .execute()
                         }
                     }
+
+                    withContext(Dispatchers.Main){
+                        backup_group.visibility = View.GONE
+                    }
                 }
+
+
             }
     }
 

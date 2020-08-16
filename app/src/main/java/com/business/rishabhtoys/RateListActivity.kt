@@ -40,12 +40,6 @@ class RateListActivity : BaseActivity() {
                     if(t != null) {
                         mAdapter.setDataSet(t)
                         mAdapter.notifyDataSetChanged()
-                        Log.e("Rishabh", "t size: "+t.size)
-                        t.forEach {
-                            Log.e("Rishabh","item name: "+it.itemName)
-                            Log.e("Rishabh","item price: "+it.itemPrice)
-                            Log.e("Rishabh","\n ************* \n ")
-                        }
                     }
                 }
 
@@ -57,6 +51,7 @@ class RateListActivity : BaseActivity() {
         val fm: FragmentManager = supportFragmentManager
         val addItemDialogFragment: AddItemDialogFragment =
             AddItemDialogFragment.getAddDialogFragment(receivedPurchaseId!!)
+        addItemDialogFragment.isCancelable = true
         addItemDialogFragment.show(fm, "fragment_add_item")
     }
 }

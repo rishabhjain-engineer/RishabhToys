@@ -31,6 +31,10 @@ class RateListAdapter : RecyclerView.Adapter<RateListAdapter.MyViewHolder>() {
         holder.itemPriceTv.text = list[position].itemPrice.toString()
         holder.itemSrTv.text = position.toString()
 
+        holder.itemView.setOnLongClickListener {
+            return@setOnLongClickListener true
+        }
+
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -48,7 +48,6 @@ class AddItemDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         receivedId = arguments?.getLong("purchaseId")
-        Log.e("Rishabh","received Id in dialog fragment: "+receivedId)
 
         val dialog: Dialog = super.onCreateDialog(savedInstanceState)
         dialog.getWindow()?.requestFeature(Window.FEATURE_NO_TITLE)
@@ -61,7 +60,7 @@ class AddItemDialogFragment : DialogFragment() {
         if (dialog != null) {
             dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             dialog.window?.setBackgroundDrawable(null)
-            dialog.setCancelable(false);
+            dialog.setCancelable(true);
         }
     }
 
