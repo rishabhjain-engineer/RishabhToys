@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundGrey"
     android:orientation="vertical"
-    tools:context=".AddEntityActivity">
+    tools:context=".UpdateEntityActivity">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/add_business_entity"
+            android:text="@string/update_business_entity"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -31,10 +31,8 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
         android:background="@color/backgroundGrey"
         android:fillViewport="true">
 
@@ -47,7 +45,7 @@
             android:layout_marginBottom="30dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/addEntity_firm_name"
+                android:id="@+id/updateEntity_firm_name"
                 style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,7 +54,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <EditText
-                    android:id="@+id/addEntity_firm_name_et"
+                    android:id="@+id/updateEntity_firm_name_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/company_s_name"
@@ -67,16 +65,16 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/addEntity_address"
+                android:id="@+id/updateEntity_address"
                 style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_firm_name">
+                app:layout_constraintTop_toBottomOf="@+id/updateEntity_firm_name">
 
                 <EditText
-                    android:id="@+id/addEntity_address_et"
+                    android:id="@+id/updateEntity_address_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/address"
@@ -86,16 +84,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/addEntity_gst"
+                android:id="@+id/updateEntity_gst"
                 style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_address">
+                app:layout_constraintTop_toBottomOf="@+id/updateEntity_address">
 
                 <EditText
-                    android:id="@+id/addEntity_gst_et"
+                    android:id="@+id/updateEntity_gst_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/gst"
@@ -107,16 +105,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/addEntity_owner_name"
+                android:id="@+id/updateEntity_owner_name"
                 style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_gst">
+                app:layout_constraintTop_toBottomOf="@+id/updateEntity_gst">
 
                 <EditText
-                    android:id="@+id/addEntity_owner_name_et"
+                    android:id="@+id/updateEntity_owner_name_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/owner_s_name"
@@ -127,16 +125,16 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/addEntity_contact_primary"
+                android:id="@+id/updateEntity_contact_primary"
                 style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_owner_name">
+                app:layout_constraintTop_toBottomOf="@+id/updateEntity_owner_name">
 
                 <EditText
-                    android:id="@+id/addEntity_contact_primary_et"
+                    android:id="@+id/updateEntity_contact_primary_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/primary_contact_no"
@@ -147,16 +145,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/addEntity_contact_alternate"
+                android:id="@+id/updateEntity_contact_alternate"
                 style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_contact_primary">
+                app:layout_constraintTop_toBottomOf="@+id/updateEntity_contact_primary">
 
                 <EditText
-                    android:id="@+id/addEntity_contact_alt_et"
+                    android:id="@+id/updateEntity_contact_alt_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/alternate_contact_no"
@@ -167,16 +165,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/addEntity_amount"
+                android:id="@+id/updateEntity_amount"
                 style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_contact_alternate">
+                app:layout_constraintTop_toBottomOf="@+id/updateEntity_contact_alternate">
 
                 <EditText
-                    android:id="@+id/addEntity_amount_et"
+                    android:id="@+id/updateEntity_amount_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/opening_balance"
@@ -187,64 +185,53 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/addEntity_openingDate"
+                android:id="@+id/updateEntity_opening_date"
                 style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
-                android:focusable="true"
-                android:clickable="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_amount">
+                app:layout_constraintTop_toBottomOf="@+id/updateEntity_amount">
 
                 <EditText
-                    android:id="@+id/addEntity_openingDate_et"
+                    android:id="@+id/updateEntity_opening_date_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/opening_date"
-                    android:clickable="false"
-                    android:focusable="false"
                     android:inputType="none"
                     android:textSize="12sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
+
             <RatingBar
-                android:id="@+id/addEntity_rating"
+                android:id="@+id/updateEntity_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:max="5"
                 android:numStars="5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_openingDate" />
+                app:layout_constraintTop_toBottomOf="@+id/updateEntity_opening_date" />
 
 
             <Button
-                android:id="@+id/create_account"
+                android:id="@+id/update_account"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
                 android:background="@color/colorPrimary"
-                android:text="@string/create_account"
+                android:text="@string/update_account"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEntity_rating" />
+                app:layout_constraintTop_toBottomOf="@+id/updateEntity_rating" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-    <CalendarView
-        android:id="@+id/add_entity_calender"
-        android:layout_width="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_gravity="center"
-        android:layout_height="match_parent"/>
 
 </LinearLayout>
