@@ -371,6 +371,18 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_height="match_parent"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save_pdf_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_marginBottom="20dp"
+        app:tint="@color/white"
+        android:src="@drawable/ic_file_download_white_24dp" />
+
 
 
 
