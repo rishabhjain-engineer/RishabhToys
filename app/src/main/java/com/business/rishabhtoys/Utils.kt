@@ -169,18 +169,22 @@ class Utils {
             var firstField:String
             val secondField :String
 
-            // character at 36th position is space, simply split and return
-            if(" " == address[36].toString()){
-                firstField = address.substring(0,36)
-                secondField = address.substring(36,address.length)
-            }else {
-                firstField = address.substring(0,36)
-                val lastSpaceIndex = firstField.lastIndexOf(" ")
-                firstField = firstField.substring(0,lastSpaceIndex)
-                secondField = address.substring(lastSpaceIndex,address.length)
+            if(address.length>=36){
+                // character at 36th position is space, simply split and return
+                if(" " == address[36].toString()){
+                    firstField = address.substring(0,36).trim()
+                    secondField = address.substring(36,address.length).trim()
+                }else {
+                    firstField = address.substring(0,36)
+                    val lastSpaceIndex = firstField.lastIndexOf(" ")
+                    firstField = firstField.substring(0,lastSpaceIndex).trim()
+                    secondField = address.substring(lastSpaceIndex,address.length).trim()
+                }
+                return arrayOf(firstField,secondField)
+            }else{
+                return arrayOf(address,"")
             }
 
-            return arrayOf(firstField,secondField)
         }
 
     }
