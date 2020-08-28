@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">RishabhToys</string>
+    <string name="rishabh_toys">RISHABH TOYS</string>
+    <string name="rishabh_toys_address">Shop No. 2895/3, IIIrd floor, Janta Market, Sadar Bazar, Delhi-110006</string>
+    <string name="rishabh_toys_gst">GST No: 07ACHPJ9322R1ZZ</string>
+    <string name="rishabh_toys_email">Email: djain986867@gmail.com</string>
+    <string name="rishabh_toys_contact">Mob No: +91&#8211;9868676991 | +91&#8211;7827820919</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -27,5 +32,12 @@
     <string name="create_account">Create Account</string>
     <string name="update_account">Update Account</string>
     <string name="APP_KEY">wkohl3s6028f53t</string>
+    <string name="company_pdf_label">Company</string>
+    <string name="address_pdf_label">Address</string>
+    <string name="gst_pdf_label">GST No</string>
+    <string name="contact_pdf_label">Contact No</string>
+    <string name="date_pdf_label">Txn Date</string>
+    <string name="amount_pdf_label">Txn Amount</string>
+    <string name="balance_pdf_label">Balance</string>
 
 </resources>
